@@ -1,0 +1,81 @@
+/* Navbar - Responsive Design */
+.navbar {
+  width: 100%;
+  height: 97px;
+  background: #FFFFFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 57px;
+}
+
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 45px;
+  color: #000000;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.nav-home, .nav-join {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-home {
+  color: rgba(30, 30, 30, 0.5);
+}
+
+.nav-join {
+  color: #000000;
+}
+
+.nav-home:hover, .nav-join:hover {
+  opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1440px) {
+  .navbar-content {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-content {
+    padding: 0 15px;
+  }
+  
+  .logo {
+    font-size: 24px;
+  }
+  
+  .nav-home, .nav-join {
+    font-size: 18px;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+}
