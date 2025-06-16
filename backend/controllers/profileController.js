@@ -1,50 +1,78 @@
 const Profile = require('../models/profileModel');
 
-// GET all profiles
-exports.getAllProfiles = async (req, res) => {
+// Get user profile
+exports.getProfile = async (req, res) => {
   try {
-    const profiles = await Profile.find();
-    res.json(profiles);
-  } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message });
-  }
-};
-
-// GET a profile by email
-exports.getProfileByEmail = async (req, res) => {
-  try {
-    const profile = await Profile.findOne({ email: req.params.email });
+    const userId = req.user.id; // Assuming you have middleware that sets req.user
+    const profile = await Profile.findById(userId).select('-password');
+    
     if (!profile) {
       return res.status(404).json({ message: 'Profile not found' });
     }
-    res.json(profile);
+    
+    res.status(200).json({ profile });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
-// UPDATE a profile by email
+// Update user profile
 exports.updateProfile = async (req, res) => {
   try {
-    const updated = await Profile.findOneAndUpdate(
-      { email: req.params.email },
-      req.body,
-      { new: true }
-    );
-    if (!updated) return res.status(404).json({ message: 'Profile not found' });
-    res.json({ message: 'Profile updated successfully', profile: updated });
+    const userId = req.user.id;
+    const { companyName, email } = req.body;
+    
+    // Check if email is already taken by another user
+    const existingUser = await Profile.findOne({ 
+      email, 
+      _id: { $ne: userId } 
+    });
+    
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+    
+    const updatedProfile = await Profile.findByIdAndUpdate(
+      userId,
+      { companyName, email },
+      { new: true, runValidators: true }
+    ).select('-password');
+    
+    if (!updatedProfile) {
+      return res.status(404).json({ message: 'Profile not found' });
+    }
+    
+    res.status(200).json({ 
+      message: 'Profile updated successfully',
+      profile: updatedProfile 
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
-// DELETE a profile by email
+// Delete user profile
 exports.deleteProfile = async (req, res) => {
   try {
-    const deleted = await Profile.findOneAndDelete({ email: req.params.email });
-    if (!deleted) return res.status(404).json({ message: 'Profile not found' });
-    res.json({ message: 'Profile deleted successfully' });
+    const userId = req.user.id;
+    const deletedProfile = await Profile.findByIdAndDelete(userId);
+    
+    if (!deletedProfile) {
+      return res.status(404).json({ message: 'Profile not found' });
+    }
+    
+    res.status(200).json({ message: 'Profile deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Server Error', error: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Get all profiles (admin only)
+exports.getAllProfiles = async (req, res) => {
+  try {
+    const profiles = await Profile.find().select('-password');
+    res.status(200).json({ profiles });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
