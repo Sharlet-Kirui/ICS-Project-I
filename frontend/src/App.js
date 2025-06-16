@@ -1,19 +1,18 @@
-    import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/global/navbar';
+import SignUp from './components/global/sign_up';
 
-    function App() {
-        const [message, setMessage] = useState('');
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<h1>Welcome to the Homepage</h1>} />
+      </Routes>
+    </Router>
+  );
+}
 
-        useEffect(() => {
-            fetch('http://localhost:5000/api/message')
-                .then(response => response.json())
-                .then(data => setMessage(data.message));
-        }, []);
-
-        return (
-            
-                <h1>{message}</h1>
-            
-        );
-    }
-
-    export default App;
+export default App;
