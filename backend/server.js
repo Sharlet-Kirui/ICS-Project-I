@@ -13,6 +13,7 @@ app.use(express.json()); // To parse JSON request bodies
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profiles', profileRoutes);
+app.use('/api/investorSign_up.js', investorSign_upRoutes);
 
 // Test route
 app.get('/api/message', (req, res) => {
