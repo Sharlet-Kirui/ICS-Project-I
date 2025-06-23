@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './css_files/sign_up.css';
+import Navbar from './navbar';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -54,7 +55,9 @@ function SignUp() {
   };
 
   return (
-    <div className="signup-page">
+    <>
+      <Navbar context="signup" />
+      <div className="signup-page">
       <div className="form-container">
         <div className="form-content">
           {/* Progress Container inside C1DCDC background */}
@@ -98,10 +101,10 @@ function SignUp() {
             <button type="submit" className="next-button">Next</button>
           </form>
 
-          <div className="bottom-progress-bar"></div>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
