@@ -1,0 +1,106 @@
+/* InvestorSignup.css */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+.signup-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #d3e5e5;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-card {
+  background-color: #d3e5e5;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.signup-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.nav-links a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links .active {
+  font-weight: bold;
+  color: #000;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-title {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.range-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="file"],
+input[type="checkbox"],
+input[type="email"],
+input::placeholder,
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="file"] {
+  background-color: #fff;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #006d77;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005962;
+}

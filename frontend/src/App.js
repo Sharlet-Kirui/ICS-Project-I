@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<h1>Welcome to the Homepage</h1>} />
+        
       </Routes>
     </Router>
   );
