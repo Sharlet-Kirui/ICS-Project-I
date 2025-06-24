@@ -4,15 +4,16 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const authRoutes = require('./routes/auth');
-const profileRoutes = require('./routes/profile');
+const authStartupRoutes = require('./routes/authStartup');
 
 app.use(cors());
 app.use(express.json()); // To parse JSON request bodies
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/profiles', profileRoutes);
+
+app.use('/api/auth', authStartupRoutes);
 
 // Test route
 app.get('/api/message', (req, res) => {

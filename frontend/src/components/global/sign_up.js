@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './css_files/sign_up.css';
+import Navbar from './navbar';
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -13,13 +14,13 @@ function SignUp() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const currentStep = location.pathname; // e.g., '/signup'
+  const currentStep = location.pathname; 
 
   const steps = [
     { title: 'Basic Info', path: '/signup' },
     { title: 'Details', path: '/details' },
     { title: 'Documents', path: '/documents' },
-    { title: 'Review', path: '/review' }
+    { title: 'Contacts', path: '/contacts' }
   ];
 
   const handleChange = (e) => {
@@ -46,15 +47,19 @@ function SignUp() {
       alert(data.message);
 
       if (response.ok) {
-        navigate('/details');
+      localStorage.setItem('email', formData.email); 
+      navigate('/details');
       }
+
     } catch (error) {
       alert('Error connecting to server');
     }
   };
 
   return (
-    <div className="signup-page">
+    <>
+      <Navbar context="signup" />
+      <div className="signup-page">
       <div className="form-container">
         <div className="form-content">
           {/* Progress Container inside C1DCDC background */}
@@ -98,10 +103,10 @@ function SignUp() {
             <button type="submit" className="next-button">Next</button>
           </form>
 
-          <div className="bottom-progress-bar"></div>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
