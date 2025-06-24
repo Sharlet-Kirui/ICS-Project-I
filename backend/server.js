@@ -22,6 +22,7 @@ app.get('/api/message', (req, res) => {
 
 
 // Contact form route
+// ✅ Contact form route
 app.post('/api/contact', async (req, res) => {
   const { website, linkedin, email, contact } = req.body;
 
@@ -38,10 +39,9 @@ app.post('/api/contact', async (req, res) => {
     res.status(500).json({ message: 'Server error. Could not save contact info.' });
   }
 });
-
-// Dashboard routes
-const dashboardRoutes = require('./routes/InvestorDashboard');
-app.use('/api/dashboard', dashboardRoutes);
+//Sign Up
+ const contactRoutes = require('./routes/contactRoutes');
+app.use('/api/contact', contactRoutes);
 
 // Server and DB connection
 const port = process.env.PORT || 5000;

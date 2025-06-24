@@ -1,106 +1,120 @@
-/* InvestorSignup.css */
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  margin: 0;
-  padding: 0;
-}
-
+/* Container styling */
 .signup-container {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #d3e5e5;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: #c5ddde;
+  padding: 2rem;
+  margin: 2rem auto;
+  width: 90%;
+  max-width: 1000px;
+  border-radius: 15px;
+  font-family: 'Arial', sans-serif;
 }
 
-.signup-card {
-  background-color: #d3e5e5;
-  border-radius: 10px;
-  padding: 20px;
-}
-
-.signup-nav {
+/* Tabs Navigation (top bar) */
+.tabs {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 2rem;
 }
 
-.logo {
+.tab {
   font-weight: bold;
-  font-size: 1.2em;
-}
-
-.nav-links a {
-  margin-left: 15px;
-  text-decoration: none;
-  color: #333;
-}
-
-.nav-links .active {
-  font-weight: bold;
-  color: #000;
-}
-
-.signup-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.section-title {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.range-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-input[type="text"],
-input[type="file"],
-input[type="checkbox"],
-input[type="email"],
-input::placeholder,
-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-input[type="file"] {
-  background-color: #fff;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #006d77;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  padding-bottom: 0.3rem;
+  border-bottom: 3px solid transparent;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #005962;
+.tab.active {
+  border-bottom: 3px solid #000;
+}
+
+/* Form Sections */
+.form-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Input field styles */
+.form-section label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.form-section input[type="text"],
+.form-section input[type="number"],
+.form-section select {
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* Checkbox section */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.checkbox-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.checkbox-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Range Min/Max */
+.range-inputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.range-inputs input {
+  width: 100%;
+  padding: 0.6rem;
+}
+
+/* Upload buttons */
+.upload-section {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.upload-box {
+  background-color: #fff;
+  border: 2px dashed #ccc;
+  padding: 1rem;
+  width: 180px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.upload-box p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Next Button */
+.next-btn {
+  float: right;
+  background-color: #6b777a;
+  color: black;
+  font-weight: bold;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.next-btn:hover {
+  background-color: #5a686b;
 }
