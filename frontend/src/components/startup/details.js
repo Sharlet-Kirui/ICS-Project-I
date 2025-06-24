@@ -34,7 +34,7 @@ function Details() {
     { title: 'Basic Info', path: '/signup' },
     { title: 'Details', path: '/details' },
     { title: 'Documents', path: '/documents' },
-    { title: 'Review', path: '/review' }
+    { title: 'Contacts', path: '/contacts' }
   ];
 
   const currencies = [

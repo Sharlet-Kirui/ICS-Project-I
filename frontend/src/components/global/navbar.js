@@ -37,6 +37,14 @@ function Navbar({ context }) {
             <Link to="#" className="nav-link" onClick={() => window.history.back()}>Back</Link>
           </>
         );
+      case 'contacts':
+        return (
+          <>
+            <Link to="/" className={getLinkClass('/')}>Home</Link>
+            <Link to="/login" className={getLinkClass('/login')}>Login</Link>
+            <Link to="#" className="nav-link" onClick={() => window.history.back()}>Back</Link>
+          </>
+        );
       default:
         return null;
     }

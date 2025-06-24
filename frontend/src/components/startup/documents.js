@@ -22,7 +22,7 @@ function Documents() {
     { title: 'Basic Info', path: '/signup' },
     { title: 'Details', path: '/details' },
     { title: 'Documents', path: '/documents' },
-    { title: 'Review', path: '/review' }
+    { title: 'Contacts', path: '/contacts' }
   ];
 
   const handleFileChange = (e) => {
@@ -33,7 +33,7 @@ function Documents() {
   const handleNext = (e) => {
     e.preventDefault();
     console.log('Uploaded Files:', files);
-    navigate('/review');
+    navigate('/contacts');
   };
 
   return (
