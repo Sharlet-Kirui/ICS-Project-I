@@ -8,6 +8,9 @@ import Documents from './components/startup/documents';
 import Contacts from './components/startup/contacts';
 import Dashboard from './components/investor/dashboard';
 import InvestorSignup from './components/investor/sign_up';
+import ContactForm from './components/investor/contactform';
+
+
 function App() {
   return (
     <Router>
@@ -20,6 +23,7 @@ function App() {
         <Route path="/contacts" element={<Contacts/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/investorsignup" element={<InvestorSignup/>} />
+        <Route path="/contactform" element={<ContactForm/>}/>
       </Routes>
     </Router>
   );
