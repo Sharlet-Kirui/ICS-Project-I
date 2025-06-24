@@ -54,11 +54,27 @@ function Details() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleNext = (e) => {
-    e.preventDefault();
-    console.log('Proceeding with:', formData);
-    navigate('/documents');
-  };
+  const handleNext = async (e) => {
+  e.preventDefault();
+  try {
+    const email = localStorage.getItem('email'); // Assumes email is stored during signup
+    
+    const response = await fetch(`http://localhost:5000/api/auth/details/${email}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      navigate('/documents');
+    } else {
+      alert(data.message || 'Failed to save details.');
+    }
+  } catch (error) {
+    alert('Server error');
+  }
+};
 
   return (
     <>

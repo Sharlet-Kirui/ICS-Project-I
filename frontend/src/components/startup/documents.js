@@ -30,11 +30,31 @@ function Documents() {
     setFiles((prev) => ({ ...prev, [name]: uploadedFiles[0] }));
   };
 
-  const handleNext = (e) => {
-    e.preventDefault();
-    console.log('Uploaded Files:', files);
-    navigate('/contacts');
-  };
+  const handleNext = async (e) => {
+  e.preventDefault();
+  const email = localStorage.getItem('email');
+  const formData = new FormData();
+  for (let key in files) {
+    formData.append(key, files[key]);
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/api/auth/documents/${email}`, {
+      method: 'PUT',
+      body: formData
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      navigate('/contacts');
+    } else {
+      alert(data.message || 'Upload failed.');
+    }
+  } catch (error) {
+    alert('Upload error');
+  }
+};
+
 
   return (
     <>

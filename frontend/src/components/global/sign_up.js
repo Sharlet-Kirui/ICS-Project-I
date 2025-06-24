@@ -14,7 +14,7 @@ function SignUp() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const currentStep = location.pathname; // e.g., '/signup'
+  const currentStep = location.pathname; 
 
   const steps = [
     { title: 'Basic Info', path: '/signup' },
@@ -47,8 +47,10 @@ function SignUp() {
       alert(data.message);
 
       if (response.ok) {
-        navigate('/details');
+      localStorage.setItem('email', formData.email); 
+      navigate('/details');
       }
+
     } catch (error) {
       alert('Error connecting to server');
     }

@@ -28,11 +28,28 @@ function Contacts() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleNext = (e) => {
-    e.preventDefault();
-    console.log('Contact Info Submitted:', formData);
-    navigate('/login');
-  };
+  const handleNext = async (e) => {
+  e.preventDefault();
+  const email = localStorage.getItem('email');
+  try {
+    const response = await fetch(`http://localhost:5000/api/auth/contacts/${email}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert('Sign-up complete!');
+      navigate('/login');
+    } else {
+      alert(data.message || 'Failed to save contacts.');
+    }
+  } catch (error) {
+    alert('Server error');
+  }
+};
+
 
   return (
     <>
@@ -81,7 +98,6 @@ function Contacts() {
                     onChange={handleChange}
                     placeholder="712345678"
                     pattern="[0-9]{7,12}"
-                    required
                   />
                 </div>
               </div>
@@ -89,12 +105,11 @@ function Contacts() {
               <div className="form-field">
                 <label>Website</label>
                 <input
-                  type="url"
+                  type="text"
                   name="website"
                   value={formData.website}
                   onChange={handleChange}
                   placeholder="https://yourcompany.com"
-                  required
                 />
               </div>
 
@@ -113,12 +128,11 @@ function Contacts() {
               <div className="form-field">
                 <label>LinkedIn</label>
                 <input
-                  type="url"
+                  type="text"
                   name="linkedin"
                   value={formData.linkedin}
                   onChange={handleChange}
                   placeholder="https://linkedin.com/in/yourstartup"
-                  required
                 />
               </div>
 
