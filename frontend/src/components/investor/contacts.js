@@ -32,15 +32,17 @@ function InvestorContacts() {
   const handleNext = async (e) => {
     e.preventDefault();
     const email = localStorage.getItem('investorEmail');
+
     try {
-      const response = await fetch(`http://localhost:5000/api/investor/contacts/${email}`, {
+      const response = await fetch(`http://localhost:5000/api/auth/investor/contacts/${email}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
+
       const data = await response.json();
       if (response.ok) {
-        alert('Investor sign-up complete!');
+        alert('Sign-up complete!');
         navigate('/login');
       } else {
         alert(data.message || 'Failed to save contacts.');
@@ -49,6 +51,7 @@ function InvestorContacts() {
       alert('Server error');
     }
   };
+
 
   return (
     <>

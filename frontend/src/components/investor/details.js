@@ -4,16 +4,17 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './css_files/details.css';
 import Navbar from '../global/navbar';
 
-function InvestorDetails() {
+function Details() {
   const [formData, setFormData] = useState({
     fullName: '',
     jobTitle: '',
     country: '',
-    city: '',
-    investmentRange: '',
+    investmentRange: 0,
+    investmentCurrency: '',
     industry: '',
     valueOffered: '',
-    fundingAmount: ''
+    fundingAmount: '',
+    fundingCurrency: ''
   });
 
   const navigate = useNavigate();
@@ -27,19 +28,30 @@ function InvestorDetails() {
     { title: 'Contacts', path: '/investor/contacts' }
   ];
 
+  const currencies = [
+    { code: "KES", name: "Kenyan Shilling (KES)" },
+    { code: "NGN", name: "Nigerian Naira (NGN)" },
+    { code: "ZAR", name: "South African Rand (ZAR)" },
+    { code: "EGP", name: "Egyptian Pound (EGP)" },
+    { code: "TZS", name: "Tanzanian Shilling (TZS)" },
+    { code: "GHS", name: "Ghanaian Cedi (GHS)" },
+    { code: "XOF", name: "West African CFA Franc (XOF)" },
+    { code: "XAF", name: "Central African CFA Franc (XAF)" },
+    { code: "USD", name: "US Dollar (USD)" }
+  ];
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleNext = async (e) => {
     e.preventDefault();
-    const email = localStorage.getItem('investorEmail');
-
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/investor-details/${email}`, {
+      const email = localStorage.getItem('investorEmail');
+      const response = await fetch(`http://localhost:5000/api/auth/investor/details/${email}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
@@ -81,27 +93,38 @@ function InvestorDetails() {
 
               <div className="form-field">
                 <label>Full Name</label>
-                <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required />
+                <input type="text" name="fullName" value={formData.fullName} onChange={handleChange}  />
               </div>
 
               <div className="form-field">
                 <label>Job Title</label>
-                <input type="text" name="jobTitle" value={formData.jobTitle} onChange={handleChange} required />
+                <input type="text" name="jobTitle" value={formData.jobTitle} onChange={handleChange} />
               </div>
 
               <div className="form-field">
                 <label>Country</label>
-                <input type="text" name="country" value={formData.country} onChange={handleChange} required />
-              </div>
-
-              <div className="form-field">
-                <label>City</label>
-                <input type="text" name="city" value={formData.city} onChange={handleChange} required />
-              </div>
-
-              <div className="form-field">
-                <label>Investment Range</label>
-                <input type="text" name="investmentRange" value={formData.investmentRange} onChange={handleChange} required />
+                <select name="country" value={formData.country} onChange={handleChange} required>
+                  <option value="" disabled></option>
+                  <option value="Algeria">Algeria</option>
+                  <option value="Angola">Angola</option>
+                  <option value="Botswana">Botswana</option>
+                  <option value="Cameroon">Cameroon</option>
+                  <option value="DR Congo">DR Congo</option>
+                  <option value="Egypt">Egypt</option>
+                  <option value="Ethiopia">Ethiopia</option>
+                  <option value="Ghana">Ghana</option>
+                  <option value="Ivory Coast">Ivory Coast</option>
+                  <option value="Kenya">Kenya</option>
+                  <option value="Morocco">Morocco</option>
+                  <option value="Nigeria">Nigeria</option>
+                  <option value="Rwanda">Rwanda</option>
+                  <option value="South Africa">South Africa</option>
+                  <option value="Tanzania">Tanzania</option>
+                  <option value="Tunisia">Tunisia</option>
+                  <option value="Uganda">Uganda</option>
+                  <option value="Zambia">Zambia</option>
+                  <option value="Zimbabwe">Zimbabwe</option>
+                </select>
               </div>
 
               <div className="form-field">
@@ -112,7 +135,7 @@ function InvestorDetails() {
               <div className="form-field">
                 <label>Value Offered</label>
                 <select name="valueOffered" value={formData.valueOffered} onChange={handleChange} required>
-                  <option value="" disabled>Select</option>
+                  <option value="" disabled></option>
                   <option value="Funding">Funding</option>
                   <option value="Advisory">Advisory</option>
                   <option value="Network">Network</option>
@@ -120,12 +143,29 @@ function InvestorDetails() {
                 </select>
               </div>
 
-              {formData.valueOffered === 'Funding' && (
-                <div className="form-field">
-                  <label>Funding Amount Willing to Offer</label>
-                  <input type="number" name="fundingAmount" value={formData.fundingAmount} onChange={handleChange} />
+              <div className="form-field">
+                <label>Funding Amount Willing to Offer</label>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <input
+                    type="number"
+                    name="fundingAmount"
+                    value={formData.fundingAmount}
+                    onChange={handleChange}
+                    placeholder=""
+                  />
+                  <select
+                    name="fundingCurrency"
+                    value={formData.fundingCurrency}
+                    onChange={handleChange}
+                  >
+                    {currencies.map((currency) => (
+                      <option key={currency.code} value={currency.code}>
+                        {currency.code}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              )}
+              </div>
 
               <button type="submit" className="next-button">Next</button>
             </form>
@@ -136,4 +176,4 @@ function InvestorDetails() {
   );
 }
 
-export default InvestorDetails;
+export default Details;

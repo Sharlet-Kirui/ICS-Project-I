@@ -28,15 +28,31 @@ function SignUp() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+  e.preventDefault();
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost:5000/api/investor/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      localStorage.setItem('investorEmail', formData.email);
+      localStorage.setItem('investorBasic', JSON.stringify(formData));
+      navigate('/investor/details');
+    } else {
+      alert(data.message || 'Sign-up failed');
     }
-    localStorage.setItem('investorEmail', formData.email);
-    localStorage.setItem('investorBasic', JSON.stringify(formData));
-    navigate('/investor/details');
-  };
+  } catch (error) {
+    alert('Server error');
+  }
+};
 
   return (
     <>

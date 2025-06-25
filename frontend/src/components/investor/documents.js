@@ -7,7 +7,8 @@ import Navbar from '../global/navbar';
 function InvestorDocuments() {
   const [files, setFiles] = useState({
     incorporation: null,
-    financials: null
+    financials: null,
+    profileImage: null
   });
 
   const navigate = useNavigate();
@@ -27,29 +28,31 @@ function InvestorDocuments() {
   };
 
   const handleNext = async (e) => {
-    e.preventDefault();
-    const email = localStorage.getItem('investorEmail');
-    const formData = new FormData();
-    for (let key in files) {
-      formData.append(key, files[key]);
-    }
+  e.preventDefault();
+  const email = localStorage.getItem('investorEmail');
+  const formData = new FormData();
 
-    try {
-      const response = await fetch(`http://localhost:5000/api/investor/documents/${email}`, {
-        method: 'PUT',
-        body: formData
-      });
+  for (let key in files) {
+    formData.append(key, files[key]);
+  }
 
-      const data = await response.json();
-      if (response.ok) {
-        navigate('/investor/contacts');
-      } else {
-        alert(data.message || 'Upload failed.');
-      }
-    } catch (error) {
-      alert('Upload error');
+  try {
+    const response = await fetch(`http://localhost:5000/api/auth/investor/documents/${email}`, {
+      method: 'PUT',
+      body: formData
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      navigate('/investor/contacts');
+    } else {
+      alert(data.message || 'Upload failed.');
     }
-  };
+  } catch (error) {
+    alert('Upload error');
+  }
+};
+
 
   return (
     <>
@@ -79,12 +82,22 @@ function InvestorDocuments() {
 
               <div className="form-field">
                 <label>Certificate of Incorporation (PDF)</label>
-                <input type="file" accept=".pdf" name="incorporation" onChange={handleFileChange} required />
+                <input type="file" accept=".pdf" name="incorporation" onChange={handleFileChange} />
               </div>
 
               <div className="form-field">
                 <label>Financial Statement (PDF)</label>
-                <input type="file" accept=".pdf" name="financials" onChange={handleFileChange} required />
+                <input type="file" accept=".pdf" name="financials" onChange={handleFileChange} />
+              </div>
+
+              <div className="form-field">
+                <label>Profile Image (PNG/JPG)</label>
+                <input
+                  type="file"
+                  name="profileImage"
+                  accept=".png,.jpg,.jpeg"
+                  onChange={handleFileChange}
+                />
               </div>
 
               <button type="submit" className="next-button">Next</button>
