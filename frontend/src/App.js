@@ -7,7 +7,10 @@ import Details from './components/startup/details';
 import Documents from './components/startup/documents';
 import Contacts from './components/startup/contacts';
 //import Dashboard from './components/investor/dashboard';
-//import InvestorSignup from './components/investor/sign_up';
+import InvestorSignup from './components/investor/sign_up';
+import InvestorDetails from './components/investor/details';
+import InvestorDocuments from './components/investor/documents';
+import InvestorContacts from './components/investor/contacts';
 //import ContactForm from './components/investor/contactform';
 
 
@@ -21,8 +24,11 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path="/documents" element={<Documents/>} />
         <Route path="/contacts" element={<Contacts/>} />
+        <Route path="/investor/signup" element={<InvestorSignup/>} />
+        <Route path="/investor/details" element={<InvestorDetails/>} />
+        <Route path="/investor/documents" element={<InvestorDocuments/>} />
+        <Route path="/investor/contacts" element={<InvestorContacts/>} />
         {/*<Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/sign_up" element={<InvestorSignup/>} />
         <Route path="/contactform" element={<ContactForm/>}/>*/}
       </Routes>
     </Router>

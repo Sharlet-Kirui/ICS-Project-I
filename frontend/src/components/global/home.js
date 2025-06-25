@@ -19,7 +19,7 @@ function Home() {
           </div>
         </div>
         <div className="buttons">
-          <Link to="/signup" className="button">Join as Investor</Link>
+          <Link to="/investor/signup" className="button">Join as Investor</Link>
           <Link to="/signup" className="button">Join as Startup</Link>
         </div>
       </div>

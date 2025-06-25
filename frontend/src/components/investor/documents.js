@@ -1,15 +1,13 @@
-// frontend/src/components/investor/sign_up.js
+// frontend/src/components/investor/documents.js
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import './css_files/sign_up.css';
+import './css_files/documents.css';
 import Navbar from '../global/navbar';
 
-function SignUp() {
-  const [formData, setFormData] = useState({
-    companyName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+function InvestorDocuments() {
+  const [files, setFiles] = useState({
+    incorporation: null,
+    financials: null
   });
 
   const navigate = useNavigate();
@@ -23,26 +21,41 @@ function SignUp() {
     { title: 'Contacts', path: '/investor/contacts' }
   ];
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleFileChange = (e) => {
+    const { name, files: uploadedFiles } = e.target;
+    setFiles((prev) => ({ ...prev, [name]: uploadedFiles[0] }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleNext = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+    const email = localStorage.getItem('investorEmail');
+    const formData = new FormData();
+    for (let key in files) {
+      formData.append(key, files[key]);
     }
-    localStorage.setItem('investorEmail', formData.email);
-    localStorage.setItem('investorBasic', JSON.stringify(formData));
-    navigate('/investor/details');
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/investor/documents/${email}`, {
+        method: 'PUT',
+        body: formData
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        navigate('/investor/contacts');
+      } else {
+        alert(data.message || 'Upload failed.');
+      }
+    } catch (error) {
+      alert('Upload error');
+    }
   };
 
   return (
     <>
-      <Navbar context="signup" />
+      <Navbar context="details" />
       <div className="signup-page">
-        <div className="form-container">
+        <div className='form-container'>
           <div className="form-content">
             <div className="progress-container">
               {steps.map((step, index) => {
@@ -61,24 +74,19 @@ function SignUp() {
               })}
             </div>
 
-            <h2 className="form-title">Basic Info</h2>
-            <form className="signup-form" onSubmit={handleSubmit}>
+            <form className="signup-form" onSubmit={handleNext}>
+              <h2 className="form-title">Upload Documents</h2>
+
               <div className="form-field">
-                <label>Company Name</label>
-                <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} required />
+                <label>Certificate of Incorporation (PDF)</label>
+                <input type="file" accept=".pdf" name="incorporation" onChange={handleFileChange} required />
               </div>
+
               <div className="form-field">
-                <label>Email Address</label>
-                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                <label>Financial Statement (PDF)</label>
+                <input type="file" accept=".pdf" name="financials" onChange={handleFileChange} required />
               </div>
-              <div className="form-field">
-                <label>New Password</label>
-                <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-              </div>
-              <div className="form-field">
-                <label>Confirm Password</label>
-                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
-              </div>
+
               <button type="submit" className="next-button">Next</button>
             </form>
           </div>
@@ -88,4 +96,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default InvestorDocuments;

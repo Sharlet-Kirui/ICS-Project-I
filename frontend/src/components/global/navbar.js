@@ -15,7 +15,12 @@ function Navbar() {
     if (currentPath === '/') return 'home';            // Homepage
     if (currentPath === '/signup') return 'signup';    // Sign-up flow
     if (currentPath === '/details') return 'details';  // Startup details
-    if (currentPath === '/contacts') return 'contacts';// Contacts page
+    if (currentPath === '/documents') return 'documents';
+    if (currentPath === '/contacts') return 'contacts';
+    if (currentPath === '/investor/signup') return 'signup';
+    if (currentPath === '/investor/details') return 'details';
+    if (currentPath === '/investor/documents') return 'documents';
+    if (currentPath === '/investor/contacts') return 'contacts';
     return 'default';
   };
 
@@ -41,6 +46,14 @@ function Navbar() {
           </>
         );
       case 'details':
+        return (
+          <>
+            <Link to="/" className={getLinkClass('/')}>Home</Link>
+            <Link to="/login" className={getLinkClass('/login')}>Login</Link>
+            <Link to="#" className="nav-link" onClick={() => window.history.back()}>Back</Link>
+          </>
+        );
+      case 'documents':
         return (
           <>
             <Link to="/" className={getLinkClass('/')}>Home</Link>
