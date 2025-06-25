@@ -41,7 +41,7 @@ const ContactForm = () => {
       width: '80%',
       borderRadius: '15px'
     }}>
-      <Tabs />
+      
       <form onSubmit={handleSubmit}>
         {[
           { label: 'Website', name: 'website' },

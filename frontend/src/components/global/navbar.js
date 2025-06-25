@@ -1,6 +1,6 @@
 import React from 'react';
 import './css_files/navbar.css';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import logoImage from './assets/logo.png'; // Replace with actual path
 
 function Navbar({ context }) {
