@@ -3,13 +3,24 @@ import './css_files/navbar.css';
 import { useLocation, Link } from 'react-router-dom';
 import logoImage from './assets/logo.png'; // Replace with actual path
 
-function Navbar({ context }) {
+function Navbar() {
   const location = useLocation();
   const currentPath = location.pathname;
 
   const getLinkClass = (path) => {
     return currentPath === path ? 'nav-link active' : 'nav-link';
   };
+  
+  const detectContext = () => {
+    if (currentPath === '/') return 'home';            // Homepage
+    if (currentPath === '/signup') return 'signup';    // Sign-up flow
+    if (currentPath === '/details') return 'details';  // Startup details
+    if (currentPath === '/contacts') return 'contacts';// Contacts page
+    return 'default';
+  };
+
+  const context = detectContext();
+
   const renderLinks = () => {
     switch (context) {
       case 'home':
