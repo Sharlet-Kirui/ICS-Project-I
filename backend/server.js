@@ -12,10 +12,12 @@ app.use('/uploads', express.static('uploads'));
 
 // Routes
 const authStartupRoutes = require('./routes/authStartup');
-const authInvestorRoutes = require('./routes/authInvestor'); // ✅ NEW
+const authInvestorRoutes = require('./routes/authInvestor'); 
+const authRoutes = require('./routes/auth');
 
 app.use('/api/auth', authStartupRoutes);
-app.use('/api/auth/investor', authInvestorRoutes); // ✅ NEW
+app.use('/api/auth/investor', authInvestorRoutes); 
+app.use('/api/auth', authRoutes);
 
 // Optional: Test route
 app.get('/api/message', (req, res) => {

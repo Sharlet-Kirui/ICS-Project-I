@@ -11,7 +11,8 @@ import InvestorSignup from './components/investor/sign_up';
 import InvestorDetails from './components/investor/details';
 import InvestorDocuments from './components/investor/documents';
 import InvestorContacts from './components/investor/contacts';
-//import ContactForm from './components/investor/contactform';
+import Login from './components/global/login';
+
 
 
 function App() {
@@ -28,8 +29,8 @@ function App() {
         <Route path="/investor/details" element={<InvestorDetails/>} />
         <Route path="/investor/documents" element={<InvestorDocuments/>} />
         <Route path="/investor/contacts" element={<InvestorContacts/>} />
-        {/*<Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/contactform" element={<ContactForm/>}/>*/}
+        <Route path="/login" element={<Login/>} />
+        {/*<Route path="/dashboard" element={<Dashboard/>} />*/}
       </Routes>
     </Router>
   );
