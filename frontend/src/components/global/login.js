@@ -27,7 +27,6 @@ function Login() {
         localStorage.setItem('token', data.token);
         localStorage.setItem('email', formData.email);
 
-        // Redirect based on userType
         if (data.userType === 'investor') {
           navigate('/investor/dashboard');
         } else if (data.userType === 'startup') {
@@ -46,11 +45,11 @@ function Login() {
   return (
     <>
       <Navbar context="login" />
-      <div className="signup-page">
-        <div className="form-container">
-          <div className="form-content">
+      <div className="login-page">
+        <div className="login-form-container">
+          <div className="login-form-content">
             <h2 className="form-title">Welcome</h2>
-            <form className="signup-form" onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={handleSubmit}>
               <div className="form-field">
                 <label>Email Address</label>
                 <input
@@ -71,11 +70,9 @@ function Login() {
                   required
                 />
               </div>
-
               <div className="form-field">
                 <Link to="/forgot-password" className="forgot-password-link">Forgot password</Link>
               </div>
-
               <button type="submit" className="next-button">Login</button>
             </form>
           </div>
