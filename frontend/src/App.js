@@ -1,4 +1,4 @@
-export default App;
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/global/navbar';
@@ -9,7 +9,7 @@ import Documents from './components/startup/documents';
 import Contacts from './components/startup/contacts';
 import InvestorSignup from './components/investor/sign_up';
 import ContactForm from './components/investor/contactform';
-
+import Dashboard from './components/investor/dashboard';
 
 function App() {
   return (
