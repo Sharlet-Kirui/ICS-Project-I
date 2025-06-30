@@ -1,163 +1,172 @@
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Top Navigation Bar */
 .navbar {
+  background-color: #e1f2fa;
+  padding: 10px 30px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  /* subtle, light-teal background like the Figma */
-  background-color: #e3f2f5;
-  padding: 10px 24px;
+  justify-content: flex-end;
+  gap: 40px;
+  border-bottom: 2px solid #b4e1f5;
 }
 
-.navbar-logo {
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 18px;
-}
-
-.navbar-links a {
+.navbar a {
   text-decoration: none;
-  color: #000;
+  color: #111;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Dashboard Metrics */
+.dashboard {
   display: flex;
-  align-items: center;
-  gap: 4px;             /* space between icon & text */
-  transition: opacity .2s;
+  justify-content: center;
+  gap: 50px;
+  margin: 30px 0;
 }
 
-.navbar-links a:hover {
-  opacity: .7;
-}
-
-.dashboard-container {
-  padding: 28px;
-  font-family: Arial, sans-serif;
-  background: #f7f9fa;
-}
-
-/* --- SUMMARY CARDS --- */
-.summary-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  margin-bottom: 32px;
-}
-
-.summary-card {
-  flex: 1 1 180px;             /* responsive grow / basis */
-  background: #c8dee1;
-  border-radius: 8px;
+.metric-box {
+  background-color: #c9dedd;
+  padding: 20px;
+  width: 160px;
   text-align: center;
-  padding: 18px;
-}
-
-.summary-card span {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-top: 6px;
-}
-
-/* --- FILTER PANEL + SEARCH BAR HOLDER --- */
-.tool-row {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-/* left side filters */
-.filters {
-  min-width: 200px;
-  background: #ffffff;
   border-radius: 8px;
-  padding: 16px;
+}
+
+.metric-box h2 {
+  font-size: 28px;
+  margin: 0;
+  color: #111;
+}
+
+.metric-box p {
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Filter Sidebar */
+.filters {
+  width: 180px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-left: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.filters label {
-  font-weight: 600;
-  font-size: .9rem;
-  margin-bottom: 4px;
+  gap: 15px;
 }
 
 .filters select,
-.filters input[type="range"] {
+.filters input {
   width: 100%;
   padding: 6px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
-/* right side search */
-.search-bar {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Search Bar */
+.search-container {
+  margin: 30px 0;
+  text-align: center;
 }
 
-.search-bar input {
-  flex: 1;
+.search-container input {
+  width: 300px;
   padding: 10px;
+  border-radius: 25px;
   border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
-.search-bar button {
-  padding: 10px 14px;
-  border: none;
-  background: #007c91;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* --- PROFILE CARD --- */
-.profile-card {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 24px;
-  max-width: 600px;
-}
-
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-bottom: 18px;
-}
-
-.avatar-placeholder {
-  width: 90px;
-  height: 90px;
-  border: 3px solid #007c91;
-  border-radius: 50%;
+/* Toggle Buttons */
+.toggle-buttons {
+  margin: 15px auto;
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-size: 42px;
+  gap: 10px;
 }
 
-.venture-name {
-  font-weight: 700;
-  font-size: 1rem;
-}
-
-.profile-info p {
-  margin: 4px 0;
-  font-size: .9rem;
-}
-
-.interest-btn {
-  margin-top: 14px;
-  padding: 10px;
-  background: #007c91;
-  color: #fff;
+.toggle-buttons button {
+  background-color: #f0f0f0;
   border: none;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
   cursor: pointer;
+}
+
+.toggle-buttons button:hover {
+  background-color: #ddd;
+}
+
+/* Profile Card */
+.profile-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto 40px;
+  max-width: 750px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+.profile-card img {
+  background-color: #c9dedd;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-details {
+  flex-grow: 1;
+}
+
+.profile-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.profile-details li {
+  margin-bottom: 5px;
+}
+
+.profile-title {
+  text-align: center;
+  font-weight: bold;
+  color: #444;
+}
+
+/* Show Interest Button */
+button.show-interest {
+  background-color: #9ed6ce;
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+button.show-interest:hover {
+  background-color: #88c3bc;
+}
+
+/* Layout Container */
+.main-content {
+  display: flex;
+  gap: 40px;
+  padding: 0 30px;
 }

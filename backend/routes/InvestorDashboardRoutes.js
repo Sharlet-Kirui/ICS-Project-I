@@ -9,7 +9,6 @@ const {
   deleteProfile
 } = require('../controllers/InvestorDashboardController');
 
-// Route: /api/investor-dashboard/
 router.get('/stats', getDashboardStats);
 router.get('/profiles', getAllProfiles);
 router.get('/profiles/:id', getProfileById);

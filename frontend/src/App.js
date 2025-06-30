@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/global/navbar';
@@ -7,13 +8,8 @@ import Details from './components/startup/details';
 import Documents from './components/startup/documents';
 import Contacts from './components/startup/contacts';
 import InvestorSignup from './components/investor/sign_up';
-import InvestorDetails from './components/investor/details';
-import InvestorDocuments from './components/investor/documents';
-import InvestorContacts from './components/investor/contacts';
-import Login from './components/global/login';
-import StartupDashboard from './components/startup/dashboard';
-import InvestorDashboard from './components/investor/dashboard';
-import ProtectedRoute from './components/global/ProtectedRoute';
+import ContactForm from './components/investor/contactform';
+import Dashboard from './components/investor/dashboard';
 
 function App() {
   return (
@@ -23,32 +19,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<StartupSignUp />} />
         <Route path="/details" element={<Details />} />
-        <Route path="/documents" element={<Documents />} />
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="/investor/signup" element={<InvestorSignup />} />
-        <Route path="/investor/details" element={<InvestorDetails />} />
-        <Route path="/investor/documents" element={<InvestorDocuments />} />
-        <Route path="/investor/contacts" element={<InvestorContacts />} />
-        <Route path="/login" element={<Login />} />
-
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute role="startup">
-              <StartupDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/investor/dashboard"
-          element={
-            <ProtectedRoute role="investor">
-              <InvestorDashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
+        <Route path="/documents" element={<Documents/>} />
+        <Route path="/contacts" element={<Contacts/>} />
+        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/sign_up" element={<InvestorSignup/>} />
+        <Route path="/contactform" element={<ContactForm/>}/>
       </Routes>
     </Router>
   );

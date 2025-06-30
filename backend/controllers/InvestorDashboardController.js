@@ -1,83 +1,61 @@
-const InvestorDashboard = require('../models/InvestorDashboard');
+const Investor = require('../models/Investor');
 
-// GET /api/investor-dashboard/stats
-const getDashboardStats = (req, res) => {
-  res.json({
-    matchedStartups: 15,
-    pendingInvites: 1,
-    contactRequests: 3
-  });
-};
-
-// GET all profiles
-const getAllProfiles = async (req, res) => {
+exports.getDashboardStats = async (req, res) => {
   try {
-    const profiles = await InvestorDashboard.find();
-    res.json(profiles);
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to retrieve investor profiles' });
+    const matchedStartups = 15; // placeholder logic
+    const pendingInvites = 1;
+    const contactRequests = 3;
+    res.status(200).json({ matchedStartups, pendingInvites, contactRequests });
+  } catch (error) {
+    res.status(500).json({ message: 'Error getting stats', error });
   }
 };
 
-// GET profile by ID
-const getProfileById = async (req, res) => {
+exports.getAllProfiles = async (req, res) => {
   try {
-    const profile = await InvestorDashboard.findById(req.params.id);
-    if (!profile) {
-      return res.status(404).json({ error: 'Profile not found' });
-    }
-    res.json(profile);
-  } catch (err) {
-    res.status(500).json({ error: 'Error retrieving profile' });
+    const profiles = await Investor.find();
+    res.status(200).json(profiles);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching profiles', error });
   }
 };
 
-// POST create profile
-const createProfile = async (req, res) => {
+exports.getProfileById = async (req, res) => {
   try {
-    const newProfile = new InvestorDashboard(req.body);
-    const saved = await newProfile.save();
-    res.status(201).json(saved);
-  } catch (err) {
-    res.status(400).json({ error: 'Failed to create profile' });
+    const profile = await Investor.findById(req.params.id);
+    if (!profile) return res.status(404).json({ message: 'Profile not found' });
+    res.status(200).json(profile);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching profile', error });
   }
 };
 
-// PUT update profile
-const updateProfile = async (req, res) => {
+exports.createProfile = async (req, res) => {
   try {
-    const updated = await InvestorDashboard.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-    if (!updated) {
-      return res.status(404).json({ error: 'Profile not found' });
-    }
-    res.json(updated);
-  } catch (err) {
-    res.status(400).json({ error: 'Failed to update profile' });
+    const newInvestor = new Investor(req.body);
+    await newInvestor.save();
+    res.status(201).json(newInvestor);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating profile', error });
   }
 };
 
-// DELETE profile
-const deleteProfile = async (req, res) => {
+exports.updateProfile = async (req, res) => {
   try {
-    const deleted = await InvestorDashboard.findByIdAndDelete(req.params.id);
-    if (!deleted) {
-      return res.status(404).json({ error: 'Profile not found' });
-    }
-    res.json({ message: 'Profile deleted successfully' });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to delete profile' });
+    const updated = await Investor.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updated) return res.status(404).json({ message: 'Investor not found' });
+    res.status(200).json(updated);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating profile', error });
   }
 };
 
-module.exports = {
-  getDashboardStats,
-  getAllProfiles,
-  getProfileById,
-  createProfile,
-  updateProfile,
-  deleteProfile
+exports.deleteProfile = async (req, res) => {
+  try {
+    const deleted = await Investor.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ message: 'Investor not found' });
+    res.status(200).json({ message: 'Deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting profile', error });
+  }
 };
