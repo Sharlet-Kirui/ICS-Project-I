@@ -1,6 +1,6 @@
 const Startup = require('../models/startupProfileModel');
 const Investor = require('../models/investorProfileModel');
-const jwt = require('jsonwebtoken'); // Ensure it's installed and configured
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 exports.login = async (req, res) => {
@@ -22,7 +22,12 @@ exports.login = async (req, res) => {
 
     const token = jwt.sign({ id: user._id, email: user.email }, 'yourSecretKey', { expiresIn: '1d' });
 
-    res.status(200).json({ token, userType });
+    res.status(200).json({
+      token,
+      userType,
+      userId: user._id,
+      name: user.fullName || user.firstName || 'User'
+    });
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }

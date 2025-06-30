@@ -6,34 +6,52 @@ import Home from './components/global/home';
 import Details from './components/startup/details';
 import Documents from './components/startup/documents';
 import Contacts from './components/startup/contacts';
-//import Dashboard from './components/investor/dashboard';
 import InvestorSignup from './components/investor/sign_up';
 import InvestorDetails from './components/investor/details';
 import InvestorDocuments from './components/investor/documents';
 import InvestorContacts from './components/investor/contacts';
 import Login from './components/global/login';
 import StartupDashboard from './components/startup/dashboard';
-
+import InvestorDashboard from './components/investor/dashboard';
+import ProtectedRoute from './components/global/ProtectedRoute';
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<Home/>} />
         <Route path="/details" element={<Details />} />
-        <Route path="/documents" element={<Documents/>} />
-        <Route path="/contacts" element={<Contacts/>} />
-        <Route path="/investor/signup" element={<InvestorSignup/>} />
-        <Route path="/investor/details" element={<InvestorDetails/>} />
-        <Route path="/investor/documents" element={<InvestorDocuments/>} />
-        <Route path="/investor/contacts" element={<InvestorContacts/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/dashboard" element={<StartupDashboard/>} />
-        {/*<Route path="/dashboard" element={<Dashboard/>} />*/}
+        <Route path="/documents" element={<Documents />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/investor/signup" element={<InvestorSignup />} />
+        <Route path="/investor/details" element={<InvestorDetails />} />
+        <Route path="/investor/documents" element={<InvestorDocuments />} />
+        <Route path="/investor/contacts" element={<InvestorContacts />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute role="startup">
+              <StartupDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/investor/dashboard"
+          element={
+            <ProtectedRoute role="investor">
+              <InvestorDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
       </Routes>
     </Router>
   );
 }
+
 export default App;

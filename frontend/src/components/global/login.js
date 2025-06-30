@@ -26,6 +26,7 @@ function Login() {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('email', formData.email);
+        localStorage.setItem('userType', data.userType);
 
         if (data.userType === 'investor') {
           navigate('/investor/dashboard');
