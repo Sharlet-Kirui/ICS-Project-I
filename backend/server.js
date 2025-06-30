@@ -18,7 +18,8 @@ const authRoutes = require('./routes/auth');
 const startupDashboardRoutes = require('./routes/StartupDashboard');
 
 app.use('/api/auth', authStartupRoutes);
-app.use('/api/auth/investor', authInvestorRoutes); 
+app.use('/api/investor', authInvestorRoutes); 
+app.use('/api/auth/investor', authInvestorRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/investors', startupDashboardRoutes);
 

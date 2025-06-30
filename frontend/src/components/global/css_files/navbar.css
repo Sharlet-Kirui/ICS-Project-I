@@ -38,13 +38,16 @@
 
 /* Unified nav link style */
 .nav-link {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-decoration: none;
   color: rgba(30, 30, 30, 0.5);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
   transition: color 0.3s ease;
+  position: relative;
 }
 
 .nav-link.active {
@@ -54,6 +57,49 @@
 .nav-link:hover {
   opacity: 0.8;
 }
+
+/* Container that includes both profile and dropdown */
+.profile-wrapper {
+  position: relative;
+}
+
+/* Dropdown hidden by default */
+.profile-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 140px;
+  z-index: 1001;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Keep dropdown visible if hovering over wrapper OR dropdown */
+.profile-wrapper:hover .profile-dropdown-content,
+.profile-dropdown-content:hover {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional spacing inside dropdown */
+.dropdown-link {
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #1e1e1e;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.dropdown-link:hover {
+  background-color: #f2f2f2;
+  border-radius: 6px;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 1440px) {

@@ -1,7 +1,7 @@
 /* ========== General Layout ========== */
 .dashboard {
   display: flex;
-  margin-top: 100px; /* To allow space for fixed navbar */
+  margin-top: 50px; /* To allow space for fixed navbar */
   background-color: #FFFFFF;
   font-family: 'Poppins', sans-serif;
 }

@@ -147,10 +147,7 @@ function Dashboard() {
                   <button onClick={() => toggleDetails(inv.email)}>
                     {expandedCards[inv.email] ? 'Show Less' : 'See More'}
                   </button>
-                  <button className="interest-btn">Show Interest</button>
-                </div>
-
-                {expandedCards[inv.email] && (
+                  {expandedCards[inv.email] && (
                   <div className="details-side">
                     <p><strong>Industry:</strong> {inv.industry}</p>
                     <p><strong>Value Offered:</strong> {inv.valueOffered.join(', ')}</p>
@@ -158,6 +155,8 @@ function Dashboard() {
                     <p><strong>Funding:</strong> {inv.fundingCurrency} {inv.fundingAmount?.toLocaleString()}</p>
                   </div>
                 )}
+                  <button className="interest-btn">Show Interest</button>
+                </div>
               </div>
             </div>
           ))}
