@@ -43,6 +43,10 @@ app.post('/api/contact', async (req, res) => {
  const contactRoutes = require('./routes/contactRoutes');
 app.use('/api/contact', contactRoutes);
 
+//Investor Dashboard
+const investorRoutes = require('./routes/InvestorDashboardRoutes');
+app.use('/api/investor-dashboard', investorRoutes);
+
 // Server and DB connection
 const port = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URI)

@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 
-const investorDashboardSchema = new mongoose.Schema({
-  fullName: String,
+const investorSchema = new mongoose.Schema({
+  fullName: { type: String, required: true },
   jobTitle: String,
-  company: String,
+  email: { type: String, required: true },
   country: String,
   investorType: String,
   investmentRange: String,
-  industries: [String],
+  industry: String,
   startupStage: String,
-  valueOffered: [String],
-  region: String,
-  registration: String
+  valueOffered: String,
+  regionOfInterest: String,
+  registration: String,
+  companyName: String,
 });
 
-module.exports = mongoose.model('InvestorDashboard', investorDashboardSchema);
+module.exports = mongoose.models.Investor || mongoose.model('Investor', investorSchema);

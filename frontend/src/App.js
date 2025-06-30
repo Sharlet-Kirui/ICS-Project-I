@@ -1,4 +1,4 @@
-export default App;
+// === File: frontend/src/App.js ===
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/global/navbar';
@@ -9,7 +9,7 @@ import Contacts from './components/startup/contacts';
 import Dashboard from './components/investor/dashboard';
 import InvestorSignup from './components/investor/sign_up';
 import ContactForm from './components/investor/contactform';
-
+import './App.css';
 
 function App() {
   return (
@@ -19,13 +19,14 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<h1>Welcome to the Homepage</h1>} />
         <Route path="/details" element={<Details />} />
-        <Route path="/documents" element={<Documents/>} />
-        <Route path="/contacts" element={<Contacts/>} />
-        <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/sign_up" element={<InvestorSignup/>} />
-        <Route path="/contactform" element={<ContactForm/>}/>
+        <Route path="/documents" element={<Documents />} />
+        <Route path="/contacts" element={<Contacts />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/sign_up" element={<InvestorSignup />} />
+        <Route path="/contactform" element={<ContactForm />} />
       </Routes>
     </Router>
   );
 }
 
+export default App;
