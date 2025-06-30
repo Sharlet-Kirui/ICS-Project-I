@@ -30,7 +30,7 @@ function Login() {
         if (data.userType === 'investor') {
           navigate('/investor/dashboard');
         } else if (data.userType === 'startup') {
-          navigate('/startup/dashboard');
+          navigate('/dashboard');
         } else {
           alert('Unknown user type');
         }

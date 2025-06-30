@@ -12,7 +12,7 @@ import InvestorDetails from './components/investor/details';
 import InvestorDocuments from './components/investor/documents';
 import InvestorContacts from './components/investor/contacts';
 import Login from './components/global/login';
-
+import StartupDashboard from './components/startup/dashboard';
 
 
 function App() {
@@ -30,6 +30,7 @@ function App() {
         <Route path="/investor/documents" element={<InvestorDocuments/>} />
         <Route path="/investor/contacts" element={<InvestorContacts/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/dashboard" element={<StartupDashboard/>} />
         {/*<Route path="/dashboard" element={<Dashboard/>} />*/}
       </Routes>
     </Router>
