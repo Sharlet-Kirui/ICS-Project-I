@@ -1,120 +1,258 @@
-/* Container styling */
-.signup-container {
-  background-color: #c5ddde;
-  padding: 2rem;
-  margin: 2rem auto;
-  width: 90%;
-  max-width: 1000px;
-  border-radius: 15px;
-  font-family: 'Arial', sans-serif;
-}
+/* Sign-Up Page - Responsive & Compact */
 
-/* Tabs Navigation (top bar) */
-.tabs {
-  display: flex;
-  margin-bottom: 1.5rem;
-  gap: 2rem;
-}
-
-.tab {
-  font-weight: bold;
-  padding-bottom: 0.3rem;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-}
-
-.tab.active {
-  border-bottom: 3px solid #000;
-}
-
-/* Form Sections */
-.form-section {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-/* Input field styles */
-.form-section label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.3rem;
-}
-
-.form-section input[type="text"],
-.form-section input[type="number"],
-.form-section select {
-  width: 100%;
-  padding: 0.6rem;
-  border: none;
-  border-radius: 4px;
-  background: #fff;
-}
-
-/* Checkbox section */
-.checkbox-group {
+.signup-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+  padding-top: 97px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
 }
 
-.checkbox-title {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.checkbox-inline {
+/* Progress Steps */
+.progress-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Range Min/Max */
-.range-inputs {
-  display: flex;
-  gap: 1rem;
-}
-
-.range-inputs input {
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
   width: 100%;
-  padding: 0.6rem;
+  margin: 40px auto 0;
+  padding: 0 20px;
 }
 
-/* Upload buttons */
-.upload-section {
+.progress-step {
   display: flex;
-  gap: 2rem;
-  margin-top: 1.5rem;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  cursor: pointer;
+  text-decoration: none; /* remove underline */
 }
 
-.upload-box {
-  background-color: #fff;
-  border: 2px dashed #ccc;
-  padding: 1rem;
+/* Completed and active styling */
+.step-title {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 32px;
+  color: #000000;
+  margin-bottom: 12px;
+}
+
+
+.progress-step.completed .step-indicator,
+.progress-step.active .step-indicator {
+  background: #1E1E1E;
+}
+
+/* Non-active/default indicator */
+.step-indicator {
   width: 180px;
+  height: 10px;
+  background: #FFFFFF;
+  border-radius: 18px;
+  transition: background 0.3s ease;
+}
+
+.progress-step:hover .step-title {
+  text-decoration: underline;
+}
+
+/* Form Container */
+.form-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 24px auto 0;
+  padding: 0 16px;
+}
+
+.form-content {
+  background: #C1DCDC;
+  border-radius: 24px;
+  padding: 24px;
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title */
+.form-title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  color: #292731;
+  margin: 60px 0 30px;
   text-align: center;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
-.upload-box p {
-  font-size: 0.9rem;
-  color: #555;
+/* Sign-up Form */
+.signup-form {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* Next Button */
-.next-btn {
-  float: right;
-  background-color: #6b777a;
-  color: black;
-  font-weight: bold;
-  border: none;
-  padding: 0.7rem 1.5rem;
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field label {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+  margin-bottom: 6px;
+}
+
+.form-field input {
+  width: 100%;
+  height: 44px;
+  background: #FFFFFF;
+  border: 1px solid #FFFFFF;
   border-radius: 4px;
-  cursor: pointer;
+  padding: 0 12px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
 }
 
-.next-btn:hover {
-  background-color: #5a686b;
+.form-field input:focus {
+  outline: none;
+  border-color: #C1DCDC;
+  box-shadow: 0 0 0 2px rgba(193, 220, 220, 0.3);
+}
+
+/* Button */
+.next-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  width: 160px;
+  height: 44px;
+  background: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1E1E1E;
+  cursor: pointer;
+  margin: 24px auto 32px;
+  transition: all 0.3s ease;
+}
+
+.next-button:hover {
+  background: #f8f8f8;
+  transform: translateY(-1px);
+}
+
+.next-button:active {
+  transform: translateY(0);
+}
+
+/* Bottom Progress */
+.bottom-progress-bar {
+  width: 250px;
+  height: 10px;
+  background: #FFFFFF;
+  border-radius: 18px;
+  margin-top: auto;
+}
+
+/* Media Queries */
+@media (max-width: 1366px) {
+  .form-container {
+    max-width: 95%;
+  }
+
+  .form-content {
+    padding: 20px;
+  }
+
+  .form-title {
+    font-size: 22px;
+  }
+
+  .form-field label {
+    font-size: 15px;
+  }
+
+  .form-field input {
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .next-button {
+    width: 150px;
+    height: 42px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-container {
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px auto 0;
+  }
+
+  .step-title {
+    font-size: 16px;
+  }
+
+  .step-indicator {
+    width: 140px;
+    height: 8px;
+  }
+
+  .form-content {
+    padding: 20px 15px;
+    margin: 10px;
+  }
+
+  .form-title {
+    font-size: 20px;
+  }
+
+  .signup-form {
+    max-width: 100%;
+  }
+
+  .next-button {
+    width: 140px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .bottom-progress-bar {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-title {
+    font-size: 18px;
+  }
+
+  .form-field label {
+    font-size: 14px;
+  }
+
+  .form-field input {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .next-button {
+    width: 130px;
+    height: 38px;
+    font-size: 13px;
+  }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import "./css_files/dashboard.css";
 const DASHBOARD_STATS_ENDPOINT = 'http://localhost:5000/api/investor-dashboard/stats';
@@ -123,3 +124,5 @@ const Dashboard = () => {
 
 export default Dashboard;
 
+=======
+>>>>>>> 7188d31692879e0081ee97e1ae69ff1e5192ac2a

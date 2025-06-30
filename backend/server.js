@@ -3,24 +3,32 @@ const mongoose = require('mongoose');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const path = require('path');
 
-const authStartupRoutes = require('./routes/authStartup');
-
+// Middlewares
 app.use(cors());
-app.use(express.json()); // To parse JSON request bodies
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); 
 
 // Routes
+const authStartupRoutes = require('./routes/authStartup');
+const authInvestorRoutes = require('./routes/authInvestor'); 
+const authRoutes = require('./routes/auth');
+const startupDashboardRoutes = require('./routes/StartupDashboard');
 
 app.use('/api/auth', authStartupRoutes);
+app.use('/api/auth/investor', authInvestorRoutes); 
+app.use('/api/auth', authRoutes);
+app.use('/api/investors', startupDashboardRoutes);
 
-// Test route
+// Optional: Test route
 app.get('/api/message', (req, res) => {
   res.json({ message: 'Hello from the server!' });
 });
 
 
+<<<<<<< HEAD
 // Contact form route
 // ✅ Contact form route
 app.post('/api/contact', async (req, res) => {
@@ -48,6 +56,9 @@ const investorRoutes = require('./routes/InvestorDashboardRoutes');
 app.use('/api/investor-dashboard', investorRoutes);
 
 // Server and DB connection
+=======
+// DB Connection and Server
+>>>>>>> 7188d31692879e0081ee97e1ae69ff1e5192ac2a
 const port = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
