@@ -59,8 +59,8 @@ function Navbar() {
     </Link>
 
     <Link
-      to={userType === 'investor' ? '/investorNetwork' : '/startupNetwork'}
-      className={getLinkClass(userType === 'investor' ? '/investorNetwork' : '/startupNetwork')}
+      to={userType === 'investor' ? '/investor/network' : '/startupNetwork'}
+      className={getLinkClass(userType === 'investor' ? '/investor/network' : '/startupNetwork')}
     >
       <FiUsers size={20} />
       <span>My Network</span>

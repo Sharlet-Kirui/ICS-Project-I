@@ -49,6 +49,56 @@ function InvestorDashboard() {
     setShowPDF(prev => ({ ...prev, [email]: !prev[email] }));
   };
 
+  const handleShowInterest = async (startup) => {
+    const senderEmail = localStorage.getItem('email');
+    const senderType = 'investor';
+    const senderName = senderEmail;
+    const receiverEmail = startup.email;
+    const receiverType = 'startup';
+    const recipientName = startup.companyName;
+
+    try {
+      const connectionRes = await fetch('http://localhost:5000/api/connections/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          senderEmail,
+          senderType,
+          receiverEmail,
+          receiverType,
+        }),
+      });
+
+      const connectionResult = await connectionRes.json();
+
+      if (!connectionRes.ok) {
+        alert(connectionResult.message || 'Failed to create connection');
+        return;
+      }
+
+      const emailRes = await fetch('http://localhost:5000/api/email/send-interest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+        senderEmail,
+        receiverEmail,
+      }),
+      });
+
+      const emailResult = await emailRes.json();
+
+      if (emailRes.ok) {
+        alert('Interest shown and email sent!');
+      } else {
+        alert(emailResult.message || 'Connection created but email failed');
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('Server error');
+    }
+  };
+
   const filteredStartups = startups.filter(startup => {
     return (
       (!searchTerm || startup.companyName?.toLowerCase().includes(searchTerm.toLowerCase())) &&
@@ -195,7 +245,12 @@ function InvestorDashboard() {
                       )}
                     </div>
                   )}
-                  <button className="interest-btn">Show Interest</button>
+                  <button
+                    className="interest-btn"
+                    onClick={() => handleShowInterest(startup)}
+                  >
+                    Show Interest
+                  </button>
                 </div>
               </div>
             </div>

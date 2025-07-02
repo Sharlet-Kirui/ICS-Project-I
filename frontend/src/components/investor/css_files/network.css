@@ -1,0 +1,115 @@
+/* investor/css_files/network.css */
+.dashboard {
+  display: flex;
+  margin-top: 50px;
+  background-color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+}
+
+.content {
+  flex: 1;
+  padding: 30px 60px;
+  position: relative;
+}
+
+.inv-network-overview {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.inv-overview-box {
+  box-sizing: border-box;
+  width: 300px;
+  height: 150px;
+  background: rgba(193, 220, 220, 0.93);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.inv-overview-box:nth-child(2) {
+  background: rgba(193, 220, 220, 0.94);
+}
+
+.inv-overview-box:nth-child(3) {
+  background: #C1DCDC;
+}
+
+.inv-overview-title {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 44px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.inv-overview-count {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 59px;
+  color: #000000;
+}
+
+.investor-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.investor-card {
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+}
+
+.card-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.card-summary {
+  flex: 1;
+  text-align: left;
+}
+
+.card-summary h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.card-summary p {
+  font-size: 16px;
+  color: #333;
+  margin: 2px 0;
+}
+
+.card-summary button {
+  background-color: #C1DCDC;
+  border: 1px solid #1E1E1E;
+  border-radius: 21px;
+  padding: 8px 16px;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 40px;
+}
+
+.card-summary button:hover {
+  background-color: #A9CFCF;
+}

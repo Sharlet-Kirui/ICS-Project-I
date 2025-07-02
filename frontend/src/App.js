@@ -81,7 +81,7 @@ function App() {
           }
         />
         <Route
-          path="/investorNetwork"
+          path="/investor/network"
           element={
             <ProtectedRoute role="investor">
               <InvestorNetwork />
