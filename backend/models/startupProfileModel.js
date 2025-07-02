@@ -31,10 +31,10 @@ const startupProfileSchema = new mongoose.Schema({
   amountCurrency: { type: String},
 
   // Documents
-  incorporation: { type: String },
-  pitchDeck: { type: String },
-  financials: { type: String },
-  profileImage: { type: String },
+  pitchDeckUrl: { type: String },
+  registrationCertificateUrl: { type: String },
+  financialsUrl: { type: String },
+  profileImageUrl: { type: String },
 
   // Contact Info
   phone: { type: String },

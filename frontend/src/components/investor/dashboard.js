@@ -7,6 +7,7 @@ function InvestorDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedFilters, setSelectedFilters] = useState({});
   const [expandedCards, setExpandedCards] = useState({});
+  const [showPDF, setShowPDF] = useState({});
   const [filterOptions, setFilterOptions] = useState({});
   const [amountRange, setAmountRange] = useState([0, 0]);
 
@@ -40,6 +41,14 @@ function InvestorDashboard() {
     });
   };
 
+  const toggleDetails = (email) => {
+    setExpandedCards(prev => ({ ...prev, [email]: !prev[email] }));
+  };
+
+  const togglePDF = (email) => {
+    setShowPDF(prev => ({ ...prev, [email]: !prev[email] }));
+  };
+
   const filteredStartups = startups.filter(startup => {
     return (
       (!searchTerm || startup.companyName?.toLowerCase().includes(searchTerm.toLowerCase())) &&
@@ -50,10 +59,6 @@ function InvestorDashboard() {
       (!selectedFilters.amountRange || (startup.amountSeeking >= selectedFilters.amountRange[0] && startup.amountSeeking <= selectedFilters.amountRange[1]))
     );
   });
-
-  const toggleDetails = (email) => {
-    setExpandedCards(prev => ({ ...prev, [email]: !prev[email] }));
-  };
 
   return (
     <div className="dashboard">
@@ -147,14 +152,13 @@ function InvestorDashboard() {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
-          <button className={Object.keys(selectedFilters).length ? 'active' : ''}>Filter</button>
         </div>
 
         <div className="investor-cards">
           {filteredStartups.map(startup => (
             <div key={startup.email} className="investor-card">
               <div className="card-layout">
-                <img src={`http://localhost:5000/${startup.profileImage}`} alt={startup.companyName} />
+                <img src={`http://localhost:5000/${startup.profileImageUrl}`} alt={startup.companyName} />
                 <div className="card-summary">
                   <h3>{startup.companyName}</h3>
                   <p><strong>Pitch:</strong> {startup.pitch}</p>
@@ -168,6 +172,27 @@ function InvestorDashboard() {
                       <p><strong>Stage:</strong> {startup.stage}</p>
                       <p><strong>Country:</strong> {startup.country}</p>
                       <p><strong>Amount Seeking:</strong> {startup.amountCurrency} {startup.amountSeeking?.toLocaleString()}</p>
+                      {startup.pitchDeckUrl && (
+                        <div>
+                          <strong>Pitch Deck:</strong>
+                          <button onClick={() => togglePDF(startup.email)}>
+                            {showPDF[startup.email] ? 'Hide PDF' : 'View PDF'}
+                          </button>
+                          {showPDF[startup.email] && (
+                            <div className="modal">
+                              <div className="modal-content">
+                                <span className="close" onClick={() => togglePDF(startup.email)}>&times;</span>
+                                <iframe
+                                  src={`http://localhost:5000/${startup.pitchDeckUrl}`}
+                                  width="100%"
+                                  height="600px"
+                                  title="Pitch Deck"
+                                ></iframe>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                   <button className="interest-btn">Show Interest</button>

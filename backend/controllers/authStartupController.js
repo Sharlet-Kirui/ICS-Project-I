@@ -45,8 +45,6 @@ const updateDetails = async (req, res) => {
   }
 };
 
-
-
 // DOCUMENTS Upload with Multer
 const storage = multer.diskStorage({
   destination: './uploads/',
@@ -63,20 +61,20 @@ const uploadDocuments = (req, res) => {
 
     try {
       const updates = {
-        pitchDeckUrl: req.files.pitchDeck?.[0].path,
-        registrationCertificateUrl: req.files.incorporation?.[0].path,
-        financialsUrl: req.files.financials?.[0].path,
-        profileImageUrl: req.files.profileImage?.[0].path
+        pitchDeckUrl: req.files.pitchDeck?.[0]?.filename && `uploads/${req.files.pitchDeck[0].filename}`,
+        registrationCertificateUrl: req.files.incorporation?.[0]?.filename && `uploads/${req.files.incorporation[0].filename}`,
+        financialsUrl: req.files.financials?.[0]?.filename && `uploads/${req.files.financials[0].filename}`,
+        profileImageUrl: req.files.profileImage?.[0]?.filename && `uploads/${req.files.profileImage[0].filename}`
       };
 
-      const user = await StartupProfile.findOneAndUpdate(
+      const startup = await StartupProfile.findOneAndUpdate(
         { email: req.params.email },
         { $set: updates },
         { new: true }
       );
 
-      if (!user) return res.status(404).json({ message: 'User not found' });
-      res.json({ message: 'Documents uploaded', profile: user });
+      if (!startup) return res.status(404).json({ message: 'Startup not found' });
+      res.json({ message: 'Documents uploaded', profile: startup });
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
     }
