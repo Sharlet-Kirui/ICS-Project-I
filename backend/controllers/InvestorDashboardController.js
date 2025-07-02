@@ -1,4 +1,4 @@
-const Investor = require('../models/Investor');
+const Investor = require('../models/InvestorDashboardModel');
 
 exports.getDashboardStats = async (req, res) => {
   try {
