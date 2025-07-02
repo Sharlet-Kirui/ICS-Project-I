@@ -49,39 +49,51 @@ function Navbar() {
   const context = detectContext();
 
   const renderDashboardLinks = () => (
-    <>
-      <Link to="/" className={getLinkClass('/')}>
-        <FiHome size={20} />
-        <span>Home</span>
-      </Link>
+  <>
+    <Link
+      to={userType === 'investor' ? '/investor/dashboard' : '/dashboard'}
+      className={getLinkClass(userType === 'investor' ? '/investor/dashboard' : '/dashboard')}
+    >
+      <FiHome size={20} />
+      <span>Home</span>
+    </Link>
 
-      <Link
-        to={userType === 'investor' ? '/investor/network' : '/startup/network'}
-        className={getLinkClass(
-          userType === 'investor' ? '/investor/network' : '/startup/network'
-        )}
-      >
-        <FiUsers size={20} />
-        <span>My Network</span>
-      </Link>
+    <Link
+      to={userType === 'investor' ? '/investorNetwork' : '/startupNetwork'}
+      className={getLinkClass(userType === 'investor' ? '/investorNetwork' : '/startupNetwork')}
+    >
+      <FiUsers size={20} />
+      <span>My Network</span>
+    </Link>
 
-      <Link to="/notifications" className={getLinkClass('/notifications')}>
-        <FiBell size={20} />
-        <span>Notifications</span>
-      </Link>
+    <Link
+      to={userType === 'investor' ? '/investorNotifications' : '/startupNotifications'}
+      className={getLinkClass(userType === 'investor' ? '/investorNotifications' : '/startupNotifications')}
+    >
+      <FiBell size={20} />
+      <span>Notifications</span>
+    </Link>
 
-      <div className="profile-wrapper">
-        <div className="nav-link">
-          <FiUser size={20} />
-          <span>Profile</span>
-        </div>
-        <div className="profile-dropdown-content">
-          <Link to="/profile" className="dropdown-link">View Profile</Link>
-          <button className="dropdown-link" onClick={handleLogout}>Logout</button>
-        </div>
+    <div className="profile-wrapper">
+      <div className="nav-link">
+        <FiUser size={20} />
+        <span>Profile</span>
       </div>
-    </>
-  );
+      <div className="profile-dropdown-content">
+        <Link
+          to={userType === 'investor' ? '/investorProfile' : '/startupProfile'}
+          className="dropdown-link"
+        >
+          View Profile
+        </Link>
+        <button className="dropdown-link" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+    </div>
+  </>
+);
+
 
   const renderDefaultLinks = () => {
     switch (context) {

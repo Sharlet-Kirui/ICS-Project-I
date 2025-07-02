@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/global/navbar';
@@ -16,6 +15,12 @@ import StartupDashboard from './components/startup/dashboard';
 import InvestorDashboard from './components/investor/dashboard';
 import ProtectedRoute from './components/global/ProtectedRoute';
 import ContactForm from './components/investor/contactform';
+import StartupNetwork from './components/startup/network';
+import StartupNotifications from './components/startup/notifications';
+import StartupProfile from './components/startup/profile';
+import InvestorNetwork from './components/investor/network';
+import InvestorNotifications from './components/investor/notifications';
+import InvestorProfile from './components/investor/profile';
 
 function App() {
   return (
@@ -25,14 +30,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<StartupSignUp />} />
         <Route path="/details" element={<Details />} />
-        <Route path="/documents" element={<Documents/>} />
-        <Route path="/contacts" element={<Contacts/>} />
+        <Route path="/documents" element={<Documents />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="/investor/signup" element={<InvestorSignup />} />
         <Route path="/investor/details" element={<InvestorDetails />} />
         <Route path="/investor/documents" element={<InvestorDocuments />} />
         <Route path="/investor/contacts" element={<InvestorContacts />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/contactform" element={<ContactForm/>}/>
+        <Route path="/contactform" element={<ContactForm />} />
 
         <Route
           path="/dashboard"
@@ -43,6 +48,31 @@ function App() {
           }
         />
         <Route
+          path="/startupNetwork"
+          element={
+            <ProtectedRoute role="startup">
+              <StartupNetwork />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/startupNotifications"
+          element={
+            <ProtectedRoute role="startup">
+              <StartupNotifications />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/startupProfile"
+          element={
+            <ProtectedRoute role="startup">
+              <StartupProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="/investor/dashboard"
           element={
             <ProtectedRoute role="investor">
@@ -50,7 +80,32 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/investorNetwork"
+          element={
+            <ProtectedRoute role="investor">
+              <InvestorNetwork />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/investorNotifications"
+          element={
+            <ProtectedRoute role="investor">
+              <InvestorNotifications />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/investorProfile"
+          element={
+            <ProtectedRoute role="investor">
+              <InvestorProfile />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* Fallback */}
         <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
       </Routes>
     </Router>
