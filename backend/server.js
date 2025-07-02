@@ -23,7 +23,6 @@ const investorDashboardRoutes = require('./routes/InvestorDashboardRoutes');
 app.use('/api/auth', authStartupRoutes);
 app.use('/api/auth/investor', authInvestorRoutes); 
 app.use('/api/auth', authRoutes);
-app.use('/api/auth/investor', authInvestorRoutes);
 app.use('/api/investors', startupDashboardRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/investor-dashboard', investorDashboardRoutes);
@@ -40,9 +39,9 @@ const port = process.env.PORT || 5000;
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('✅ MongoDB Connected');
-    app.listen(port, () => console.log(`🚀 Server running on port ${port}`));
+    console.log('MongoDB Connected');
+    app.listen(port, () => console.log(`Server running on port ${port}`));
   })
   .catch(err => {
-    console.error('❌ MongoDB Connection Error:', err);
+    console.error(' MongoDB Connection Error:', err);
   });

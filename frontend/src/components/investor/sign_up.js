@@ -4,7 +4,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './css_files/sign_up.css';
 import Navbar from '../global/navbar';
 
-function SignUp() {
+function InvestorSignUp() {
   const [formData, setFormData] = useState({
     companyName: '',
     email: '',
@@ -104,4 +104,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default  InvestorSignUp;

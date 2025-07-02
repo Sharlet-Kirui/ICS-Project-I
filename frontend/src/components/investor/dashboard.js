@@ -4,7 +4,7 @@ import "./css_files/dashboard.css";
 const DASHBOARD_STATS_ENDPOINT = 'http://localhost:5000/api/investor-dashboard/stats';
 const PROFILE_ENDPOINT = 'http://localhost:5000/api/investor-dashboard/profiles';
 
-const Dashboard = () => {
+const InvestorDashboard = () => {
   const [stats, setStats] = useState({
     matchedStartups: 0,
     pendingInvites: 0,
@@ -122,6 +122,6 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default InvestorDashboard;
 
 
