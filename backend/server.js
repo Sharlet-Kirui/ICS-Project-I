@@ -24,7 +24,6 @@ app.use('/api/auth', authStartupRoutes);
 app.use('/api/auth/investor', authInvestorRoutes); 
 app.use('/api/auth', authRoutes);
 app.use('/api/investors', startupDashboardRoutes);
-app.use('/api/contact', contactRoutes);
 app.use('/api/investor-dashboard', investorDashboardRoutes);
 
 
