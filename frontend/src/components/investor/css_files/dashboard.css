@@ -1,157 +1,185 @@
-/* General Styles */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f3f3f3;
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
-
-
-
-/* Dashboard Metrics */
+/* ========== General Layout ========== */
 .dashboard {
   display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin: 30px 0;
+  margin-top: 50px; /* To allow space for fixed navbar */
+  background-color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
 }
 
-.metric-box {
-  background-color: #c9dedd;
-  padding: 20px;
-  width: 160px;
-  text-align: center;
-  border-radius: 8px;
+/* ========== Sidebar ========== */
+.filter-sidebar {
+  width: 270px;
+  background-color: #C1DCDC;
+  padding: 30px;
+  position: sticky;
+  top: 100px;
+  height: 100vh;
+  margin: 40px;
 }
 
-.metric-box h2 {
-  font-size: 28px;
-  margin: 0;
-  color: #111;
+.filter-sidebar h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.metric-box p {
-  margin: 5px 0 0 0;
+.filter-group {
+  margin-bottom: 30px;
+}
+
+.filter-group h5 {
   font-size: 14px;
-  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #4F4F4F;
+  margin-bottom: 10px;
 }
 
-/* Filter Sidebar */
-.filters {
-  width: 180px;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  margin-left: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #1E1E1E;
 }
 
-.filters select,
-.filters input {
-  width: 100%;
-  padding: 6px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.selected-filters {
+  margin-top: 20px;
 }
 
-/* Search Bar */
-.search-container {
-  margin: 30px 0;
-  text-align: center;
-}
-
-.search-container input {
-  width: 300px;
-  padding: 10px;
-  border-radius: 25px;
-  border: 1px solid #ccc;
-}
-
-/* Toggle Buttons */
-.toggle-buttons {
-  margin: 15px auto;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.toggle-buttons button {
-  background-color: #f0f0f0;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
+.filter-tag {
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 12px;
+  padding: 4px 10px;
+  margin: 5px 5px 0 0;
+  font-size: 12px;
   cursor: pointer;
 }
 
-.toggle-buttons button:hover {
-  background-color: #ddd;
+/* ========== Main Content ========== */
+.content {
+  flex: 1;
+  padding: 30px 60px;
 }
 
-/* Profile Card */
-.profile-card {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 0 auto 40px;
-  max-width: 750px;
+/* Search bar */
+.search-filter {
   display: flex;
   align-items: center;
-  gap: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
 }
 
-.profile-card img {
-  background-color: #c9dedd;
+.search-filter input {
+  flex: 1;
+  padding: 12px 18px;
+  font-size: 18px;
+  border: none;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  margin-right: 20px;
+}
+
+.search-filter button {
+  padding: 12px 24px;
+  background-color: rgba(30, 30, 30, 0.5);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.search-filter button.active {
+  background-color: #000;
+}
+
+/* ========== Investor Cards ========== */
+.investor-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.investor-card {
+  background-color: #e0e0e0; /* light grey */
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.card-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.investor-card img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #333;
 }
 
-.profile-details {
-  flex-grow: 1;
+.card-summary {
+  flex: 1;
+  text-align: left;
 }
 
-.profile-details ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-size: 14px;
-}
-
-.profile-details li {
+.card-summary h3 {
+  font-size: 22px;
+  font-weight: 600;
   margin-bottom: 5px;
 }
 
-.profile-title {
-  text-align: center;
-  font-weight: bold;
-  color: #444;
+.card-summary p {
+  font-size: 16px;
+  color: #333;
+  margin: 2px 0;
 }
 
-/* Show Interest Button */
-button.show-interest {
-  background-color: #9ed6ce;
-  color: #000;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
+.card-summary .company-name {
   font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.card-summary button {
+  background-color: #C1DCDC;
+  border: 1px solid #1E1E1E;
+  border-radius: 21px;
+  padding: 8px 16px;
+  font-size: 14px;
   margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-button.show-interest:hover {
-  background-color: #88c3bc;
+.card-summary button:hover {
+  background-color: #C1DCDC;
 }
 
-/* Layout Container */
-.main-content {
-  display: flex;
-  gap: 40px;
-  padding: 0 30px;
+.details {
+  text-align: right;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.details p {
+  margin-bottom: 8px;
+}
+
+/* Show Interest button */
+.interest-btn {
+  margin-top: 15px;
+  padding: 10px 24px;
+  background-color: #C1DCDC;
+  border: 1px solid #1E1E1E;
+  border-radius: 21px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #000;
 }

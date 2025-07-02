@@ -17,14 +17,15 @@ const authStartupRoutes = require('./routes/authStartup');
 const authInvestorRoutes = require('./routes/authInvestor');
 const authRoutes = require('./routes/auth');
 const startupDashboardRoutes = require('./routes/StartupDashboard');
-const investorDashboardRoutes = require('./routes/InvestorDashboardRoutes');
+const investorDashboardRoutes = require('./routes/InvestorDashboard');
 
 // === ROUTE REGISTRATION ===
 app.use('/api/auth', authStartupRoutes);
 app.use('/api/auth/investor', authInvestorRoutes); 
 app.use('/api/auth', authRoutes);
 app.use('/api/investors', startupDashboardRoutes);
-app.use('/api/investor-dashboard', investorDashboardRoutes);
+app.use('/api/startups', investorDashboardRoutes);
+
 
 
 
