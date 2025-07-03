@@ -7,6 +7,7 @@ function InvestorNetwork() {
   const [acceptedConnections, setAcceptedConnections] = useState([]);
   const [sentConnections, setSentConnections] = useState([]);
   const [startups, setStartups] = useState([]);
+  const [showPDF, setShowPDF] = useState({});
   const email = localStorage.getItem('email');
 
   useEffect(() => {
@@ -25,6 +26,14 @@ function InvestorNetwork() {
       .catch(err => console.error(err));
   }, [email]);
 
+  const [expandedCards, setExpandedCards] = useState({});
+  const toggleDetails = (email) => {
+    setExpandedCards(prev => ({ ...prev, [email]: !prev[email] }));
+  };
+
+  const togglePDF = (email) => {
+    setShowPDF(prev => ({ ...prev, [email]: !prev[email] }));
+  };
   const handleResponse = async (connectionId, action) => {
     try {
       const res = await fetch('http://localhost:5000/api/connections/respond', {
@@ -45,22 +54,61 @@ function InvestorNetwork() {
     }
   };
 
-  const getStartupName = (email) => {
-    const startup = startups.find(s => s.email === email);
-    return startup ? startup.companyName : email;
+  const getStartupDetails = (email) => {
+    return startups.find(s => s.email === email);
   };
 
   const renderCard = (conn, type) => {
     const isReceiver = conn.receiverEmail === email;
     const profileEmail = isReceiver ? conn.senderEmail : conn.receiverEmail;
-    const companyName = getStartupName(profileEmail);
+    const startup = getStartupDetails(profileEmail);
+
+    if (!startup) return null;
 
     return (
       <div key={conn._id} className="investor-card">
         <div className="card-layout">
+          <img src={`http://localhost:5000/${startup.profileImageUrl}`} alt={startup.companyName} />
           <div className="card-summary">
-            <h3>{companyName}</h3>
-            <p>Status: {conn.status}</p>
+            <h3>{startup.companyName}</h3>
+            <p><strong>Pitch:</strong> {startup.pitch}</p>
+            <button onClick={() => toggleDetails(startup.email)}>
+              {expandedCards[startup.email] ? 'Show Less' : 'See More'}
+            </button>
+
+            {expandedCards[startup.email] && (
+              <div className="details-side">
+                <p><strong>Industry:</strong> {startup.industry}</p>
+                <p><strong>Business Model:</strong> {startup.businessModel}</p>
+                <p><strong>Stage:</strong> {startup.stage}</p>
+                <p><strong>Country:</strong> {startup.country}</p>
+                <p><strong>Amount Seeking:</strong> {startup.amountCurrency} {startup.amountSeeking?.toLocaleString()}</p>
+                {startup.pitchDeckUrl && (
+                  <div>
+                          <strong>Pitch Deck:</strong>
+                          <button onClick={() => togglePDF(startup.email)}>
+                            {showPDF[startup.email] ? 'Hide PDF' : 'View PDF'}
+                          </button>
+                          {showPDF[startup.email] && (
+                            <div className="modal">
+                              <div className="modal-content">
+                                <span className="close" onClick={() => togglePDF(startup.email)}>&times;</span>
+                                <iframe
+                                  src={`http://localhost:5000/${startup.pitchDeckUrl}`}
+                                  width="100%"
+                                  height="600px"
+                                  title="Pitch Deck"
+                                ></iframe>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                )}
+              </div>
+            )}
+
+            <p><strong>Status:</strong> {conn.status}</p>
+
             {type === 'pending' && isReceiver && (
               <div>
                 <button onClick={() => handleResponse(conn._id, 'accepted')}>Accept</button>
@@ -69,15 +117,28 @@ function InvestorNetwork() {
             )}
             {type === 'accepted' && (
               <div>
-                <button onClick={() => alert('Contact info from startup profile can be rendered here')}>View Contacts</button>
+                <button onClick={() => toggleDetails(startup.email)}>
+                  {expandedCards[startup.email] ? 'Hide Contacts' : 'View Contacts'}
+                </button>
+
+                {expandedCards[startup.email] && (
+                  <div className="details-side contact-info">
+                    <h4>Contact Information</h4>
+                    <p><strong>Contact Person:</strong> {startup.contactPerson || 'N/A'}</p>
+                    <p><strong>Email:</strong> {startup.email}</p>
+                    <p><strong>Phone:</strong> {startup.phone || 'N/A'}</p>
+                    <p><strong>LinkedIn:</strong> <a href={startup.linkedIn} target="_blank" rel="noopener noreferrer">{startup.linkedIn || 'N/A'}</a></p>
+                    <p><strong>Website:</strong> <a href={startup.website} target="_blank" rel="noopener noreferrer">{startup.website || 'N/A'}</a></p>
+                  </div>
+                )}
               </div>
             )}
           </div>
         </div>
       </div>
     );
-  };
-
+  }; 
+  
   return (
     <div className="dashboard">
       <main className="content">

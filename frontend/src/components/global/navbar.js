@@ -37,6 +37,7 @@ function Navbar() {
     if (currentPath.includes('/dashboard')) return 'dashboard';
     if (currentPath.includes('/network')) return 'dashboard';
     if (currentPath.includes('/investorNotifications')) return 'dashboard';
+    if (currentPath.includes('/startupNetwork')) return 'dashboard';
     if (currentPath === '/signup') return 'signup';
     if (currentPath === '/details') return 'details';
     if (currentPath === '/documents') return 'documents';

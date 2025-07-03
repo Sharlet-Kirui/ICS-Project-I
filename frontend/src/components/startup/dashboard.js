@@ -54,6 +54,55 @@ function Dashboard() {
     setExpandedCards(prev => ({ ...prev, [email]: !prev[email] }));
   };
 
+  const handleShowInterest = async (investor) => {
+    const senderEmail = localStorage.getItem('email');
+    const receiverEmail = investor.email;
+    const recipientName = investor.fullName;
+    const senderType = 'startup';
+
+    try {
+      const connRes = await fetch('http://localhost:5000/api/connections/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          senderEmail,
+          receiverEmail,
+          senderType,
+          receiverType: 'investor',
+        }),
+      });
+
+      const connResult = await connRes.json();
+
+      if (!connRes.ok) {
+        alert(connResult.message || 'Connection failed');
+        return;
+      }
+
+      const emailRes = await fetch('http://localhost:5000/api/email/send-interest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          senderEmail,
+          receiverEmail,
+          recipientName,
+          senderType,
+        }),
+      });
+
+      if (emailRes.ok) {
+        alert('Interest sent and email delivered!');
+      } else {
+        const emailResult = await emailRes.json();
+        alert(emailResult.message || 'Email failed');
+      }
+
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Server error');
+    }
+  };
+
   return (
     <div className="dashboard">
       <aside className="filter-sidebar">
@@ -155,7 +204,12 @@ function Dashboard() {
                     <p><strong>Funding:</strong> {inv.fundingCurrency} {inv.fundingAmount?.toLocaleString()}</p>
                   </div>
                 )}
-                  <button className="interest-btn">Show Interest</button>
+                  <button
+                      className="interest-btn"
+                      onClick={() => handleShowInterest(inv)}
+                    >
+                      Show Interest
+                    </button>
                 </div>
               </div>
             </div>

@@ -29,7 +29,6 @@ router.get('/:email', async (req, res) => {
   try {
     const pending = await Connection.find({
       receiverEmail: email,
-      receiverType: 'investor',
       status: 'pending',
     });
 
@@ -43,7 +42,6 @@ router.get('/:email', async (req, res) => {
 
     const sent = await Connection.find({
       senderEmail: email,
-      senderType: 'investor',
       status: 'sent',
     });
 

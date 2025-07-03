@@ -80,9 +80,11 @@ function InvestorDashboard() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-        senderEmail,
-        receiverEmail,
-      }),
+          senderEmail,
+          receiverEmail,
+          senderName,
+          recipientName,
+        })
       });
 
       const emailResult = await emailRes.json();
@@ -94,7 +96,6 @@ function InvestorDashboard() {
       }
 
     } catch (error) {
-      console.error(error);
       alert('Server error');
     }
   };
@@ -198,7 +199,7 @@ function InvestorDashboard() {
         <div className="search-filter">
           <input
             type="text"
-            placeholder="Search Startups"
+            placeholder="What are you looking for?"
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
