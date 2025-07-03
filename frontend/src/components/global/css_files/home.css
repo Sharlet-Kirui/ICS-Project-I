@@ -1,6 +1,6 @@
 /* Homepage Banner - Compact & Responsive */
 .home-banner {
-  min-height: 512px;
+  max-height: 330px;
   width: 100%;
   max-width: 1248px;
   margin: 97px auto 0;
@@ -25,6 +25,7 @@
 
 /* Tagline */
 .tagline {
+  padding: 10px;
   font-weight: 800;
   font-size: 48px;
   line-height: 56px;
@@ -46,7 +47,7 @@
 
 .number {
   font-weight: 500;
-  font-size: 28px;
+  font-size: 20px;
   line-height: 40px;
   color: #1E1E1E;
 }
@@ -59,7 +60,7 @@
 }
 
 .divider {
-  width: 48px;
+  width: 30px;
   height: 0;
   border: 1px solid #1E1E1E;
   transform: rotate(90deg);
@@ -89,6 +90,7 @@
   cursor: pointer;
   margin: 24px auto 32px;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .button:hover {
@@ -106,6 +108,69 @@
   height: 300px;
   background: #1E1E1E;
   border-radius: 200px 200px 0px 200px;
+}
+
+/* How It Works Section */
+.how-it-works {
+  width: 100%;
+  max-width: 1248px;
+  margin: 80px auto 0;
+  padding: 0 24px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.how-it-works h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  color: #1E1E1E;
+  text-align: center;
+}
+
+.how-cards {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.how-card {
+  flex: 1;
+  min-width: 260px;
+  background: #F8FAFB;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 24px;
+  transition: box-shadow 0.3s ease;
+}
+
+.how-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.how-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.how-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1E1E1E;
+}
+
+.how-description {
+  font-size: 15px;
+  color: #4A5568;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .how-cards {
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
 /* Media Queries */
