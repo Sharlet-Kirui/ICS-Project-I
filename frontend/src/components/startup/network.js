@@ -76,13 +76,22 @@ function StartupNetwork() {
                 <p><strong>Value Offered:</strong> {investor.valueOffered?.join(', ')}</p>
                 <p><strong>Country:</strong> {investor.country}</p>
                 <p><strong>Funding:</strong> {investor.fundingCurrency} {investor.fundingAmount?.toLocaleString()}</p>
+              </div>
+                )}
+              {type === 'accepted' && (
+                  <div>
+                <button onClick={() => toggleDetails(investor.email)}>
+                  {expandedCards[investor.email] ? 'Hide Contacts' : 'View Contacts'}
+                </button>
 
-                {type === 'accepted' && (
-                  <>
+                {expandedCards[investor.email] && (
+                  <div className="contact-info">
+                    <h4>Contact Information</h4>
                     <p><strong>Email:</strong> {investor.email}</p>
                     <p><strong>Phone:</strong> {investor.phone || 'N/A'}</p>
-                    <p><strong>LinkedIn:</strong> <a href={investor.linkedIn} target="_blank" rel="noreferrer">{investor.linkedIn || 'N/A'}</a></p>
-                  </>
+                    <p><strong>LinkedIn:</strong> {investor.linkedin} </p>
+                    <p><strong>Website:</strong> {investor.website} </p>
+                  </div>
                 )}
               </div>
             )}

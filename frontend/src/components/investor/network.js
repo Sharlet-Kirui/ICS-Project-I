@@ -122,13 +122,12 @@ function InvestorNetwork() {
                 </button>
 
                 {expandedCards[startup.email] && (
-                  <div className="details-side contact-info">
+                  <div className="contact-info">
                     <h4>Contact Information</h4>
-                    <p><strong>Contact Person:</strong> {startup.contactPerson || 'N/A'}</p>
                     <p><strong>Email:</strong> {startup.email}</p>
                     <p><strong>Phone:</strong> {startup.phone || 'N/A'}</p>
-                    <p><strong>LinkedIn:</strong> <a href={startup.linkedIn} target="_blank" rel="noopener noreferrer">{startup.linkedIn || 'N/A'}</a></p>
-                    <p><strong>Website:</strong> <a href={startup.website} target="_blank" rel="noopener noreferrer">{startup.website || 'N/A'}</a></p>
+                    <p><strong>LinkedIn:</strong> {startup.linkedin} </p>
+                    <p><strong>Website:</strong> {startup.website} </p>
                   </div>
                 )}
               </div>

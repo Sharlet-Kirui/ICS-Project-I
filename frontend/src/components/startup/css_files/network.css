@@ -129,35 +129,20 @@
   color: #222;
 }
 
-.contact-info {
-  margin-top: 15px;
-  background-color: #d6f5e3;
+.contact-info{
+  margin-top: 10px;
   padding: 15px;
+  background-color: #f0f8f8;
   border-radius: 12px;
-  border-left: 4px solid #2ecc71;
+  border-left: 4px solid #1E1E1E;
 }
 
-.contact-info h4 {
-  margin-bottom: 10px;
-  font-size: 16px;
-  color: #1e1e1e;
-  font-weight: 600;
-}
-
-.contact-info p {
+.contact-info p{
+  margin: 5px 0;
   font-size: 14px;
-  margin: 4px 0;
-  color: #333;
+  color: #222;
 }
 
-.contact-info a {
-  color: #2980b9;
-  text-decoration: none;
-}
-
-.contact-info a:hover {
-  text-decoration: underline;
-}
 .modal {
   position: fixed;
   top: 0;

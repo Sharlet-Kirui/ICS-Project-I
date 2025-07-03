@@ -83,7 +83,16 @@ router.post('/send-interest', async (req, res) => {
       html: htmlContent
     });
 
-    // Save connection
+  // Check for existing connection in either direction
+  const existingConnection = await Connection.findOne({
+    $or: [
+      { senderEmail, receiverEmail },
+      { senderEmail: receiverEmail, receiverEmail: senderEmail }
+    ]
+  });
+
+  // CASE 1: No previous connection → Create new with status 'sent'
+  if (!existingConnection) {
     const newConnection = new Connection({
       senderEmail,
       senderType,
@@ -93,6 +102,23 @@ router.post('/send-interest', async (req, res) => {
     });
 
     await newConnection.save();
+    return res.status(200).json({ message: 'Interest sent and connection saved.' });
+  }
+
+  // CASE 2: Other party already sent → Convert to 'accepted'
+  if (
+    existingConnection.senderEmail === receiverEmail &&
+    existingConnection.receiverEmail === senderEmail &&
+    existingConnection.status === 'sent'
+  ) {
+    existingConnection.status = 'accepted';
+    await existingConnection.save();
+    return res.status(200).json({ message: 'Mutual interest! Connection accepted.' });
+  }
+
+  // CASE 3: Already sent or accepted by same party → Skip
+  return res.status(200).json({ message: 'Interest already sent or accepted. No action taken.' });
+
 
     res.status(200).json({ message: 'Interest sent and connection saved.' });
   } catch (error) {
