@@ -1,6 +1,7 @@
 import React from 'react';
 import './css_files/home.css';
 import { Link } from 'react-router-dom';
+import { FaSearch, FaHandshake, FaRocket } from "react-icons/fa";
 
 function Home() {
   return (
@@ -30,17 +31,17 @@ function Home() {
       <h2>How It Works</h2>
       <div className="how-cards">
         <div className="how-card">
-          <div className="how-icon">🔍</div>
+          <div className="how-icon"><FaSearch size={20}/></div>
           <div className="how-title">Discover</div>
           <div className="how-description">Browse a curated list of innovative African startups.</div>
         </div>
         <div className="how-card">
-          <div className="how-icon">🤝</div>
+          <div className="how-icon"><FaHandshake size={20}/></div>
           <div className="how-title">Connect</div>
           <div className="how-description">Engage with startups and investors through our platform.</div>
         </div>
         <div className="how-card">
-          <div className="how-icon">🚀</div>
+          <div className="how-icon"><FaRocket size={20}/></div>
           <div className="how-title">Grow</div>
           <div className="how-description">Support and scale promising ventures.</div>
         </div>

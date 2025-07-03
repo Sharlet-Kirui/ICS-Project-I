@@ -120,7 +120,7 @@ function Contacts() {
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  placeholder="12345 00200 <Zip code>"
+                  placeholder="12345 00200 <Zip code> or Address"
                   required
                 />
               </div>

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './css_files/login.css';
 import Navbar from './navbar';
 
 function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,9 +28,9 @@ function Login() {
         localStorage.setItem('userType', data.userType);
 
         if (data.userType === 'investor') {
-          navigate('/investor/dashboard');
+          window.location.href = '/investor/dashboard';
         } else if (data.userType === 'startup') {
-          navigate('/dashboard');
+          window.location.href = '/dashboard';
         } else {
           alert('Unknown user type');
         }
