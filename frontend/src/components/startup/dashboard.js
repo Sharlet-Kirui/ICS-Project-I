@@ -1,6 +1,7 @@
 // frontend/src/components/startup/dashboard.js
 import React, { useEffect, useState } from 'react';
 import './css_files/dashboard.css';
+import { useNotification } from '../../contexts/NotificationContext';
 
 function Dashboard() {
   const [investors, setInvestors] = useState([]);
@@ -9,6 +10,8 @@ function Dashboard() {
   const [expandedCards, setExpandedCards] = useState({});
   const [filterOptions, setFilterOptions] = useState({});
   const [fundingRange, setFundingRange] = useState([0, 0]);
+  const { addNotification } = useNotification();
+  const [startupProfile, setStartupProfile] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/investors')
@@ -24,6 +27,16 @@ function Dashboard() {
       })
       .catch(err => console.error(err));
   }, []);
+
+  useEffect(() => {
+  const email = localStorage.getItem('email');
+  if (email) {
+    fetch(`http://localhost:5000/api/startups/profile/${email}`)
+      .then(res => res.json())
+      .then(data => setStartupProfile(data))
+      .catch(err => console.error('Error fetching startup profile:', err));
+  }
+}, []);
 
   const handleFilterChange = (key, value) => {
     setSelectedFilters(prev => ({
@@ -56,6 +69,7 @@ function Dashboard() {
 
   const handleShowInterest = async (investor) => {
     const senderEmail = localStorage.getItem('email');
+    const senderName = startupProfile?.companyName || senderEmail;
     const receiverEmail = investor.email;
     const recipientName = investor.fullName;
     const senderType = 'startup';
@@ -79,6 +93,17 @@ function Dashboard() {
         return;
       }
 
+      const notifRes = await fetch('http://localhost:5000/api/notifications/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          senderEmail,
+          recipientEmail: receiverEmail,
+          message: `${senderName} has shown interest in you.`,
+          type: 'interest',
+        }),
+      });
+
       const emailRes = await fetch('http://localhost:5000/api/email/send-interest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -90,16 +115,23 @@ function Dashboard() {
         }),
       });
 
-      if (emailRes.ok) {
-        alert('Interest sent and email delivered!');
+      const notifSuccess = notifRes.ok;
+      const emailSuccess = emailRes.ok;
+
+      if (notifSuccess && emailSuccess) {
+        addNotification(`Interest shown to ${recipientName}, email & notification sent!`, 'success');
+        // setConnectionStatus(prev => ({ ...prev, [receiverEmail]: true }));
+      } else if (notifSuccess) {
+        addNotification(`Notification sent but email failed`, 'warning');
+      } else if (emailSuccess) {
+        addNotification(`Email sent but notification failed`, 'warning');
       } else {
-        const emailResult = await emailRes.json();
-        alert(emailResult.message || 'Email failed');
+        addNotification(`Connection created, but both email and notification failed`, 'error');
       }
 
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Server error');
+    } catch (error) {
+      console.error(error);
+      addNotification('Server error occurred', 'error');
     }
   };
 

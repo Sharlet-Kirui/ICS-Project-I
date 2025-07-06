@@ -1,6 +1,7 @@
 // frontend/src/components/investor/dashboard.js
 import React, { useEffect, useState } from 'react';
 import './css_files/dashboard.css';
+import { useNotification } from '../../contexts/NotificationContext';
 
 function InvestorDashboard() {
   const [startups, setStartups] = useState([]);
@@ -10,6 +11,10 @@ function InvestorDashboard() {
   const [showPDF, setShowPDF] = useState({});
   const [filterOptions, setFilterOptions] = useState({});
   const [amountRange, setAmountRange] = useState([0, 0]);
+  const [investorProfile, setInvestorProfile] = useState(null);
+  // const [connectionStatus, setConnectionStatus] = useState({}); // Optional: track button disable
+
+  const { addNotification } = useNotification();
 
   useEffect(() => {
     fetch('http://localhost:5000/api/startups')
@@ -25,6 +30,16 @@ function InvestorDashboard() {
       })
       .catch(err => console.error(err));
   }, []);
+
+  useEffect(() => {
+  const email = localStorage.getItem('email');
+  if (email) {
+    fetch(`http://localhost:5000/api/investors/profile/${email}`)
+      .then(res => res.json())
+      .then(data => setInvestorProfile(data))
+      .catch(err => console.error('Error fetching investor profile:', err));
+  }
+}, []);
 
   const handleFilterChange = (key, value) => {
     setSelectedFilters(prev => ({
@@ -52,7 +67,7 @@ function InvestorDashboard() {
   const handleShowInterest = async (startup) => {
     const senderEmail = localStorage.getItem('email');
     const senderType = 'investor';
-    const senderName = senderEmail;
+    const senderName = investorProfile?.companyName || senderEmail;
     const receiverEmail = startup.email;
     const receiverType = 'startup';
     const recipientName = startup.companyName;
@@ -61,20 +76,26 @@ function InvestorDashboard() {
       const connectionRes = await fetch('http://localhost:5000/api/connections/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          senderEmail,
-          senderType,
-          receiverEmail,
-          receiverType,
-        }),
+        body: JSON.stringify({ senderEmail, senderType, receiverEmail, receiverType }),
       });
 
       const connectionResult = await connectionRes.json();
 
       if (!connectionRes.ok) {
-        alert(connectionResult.message || 'Failed to create connection');
+        addNotification(connectionResult.message || 'Failed to create connection', 'error');
         return;
       }
+
+      const notifRes = await fetch('http://localhost:5000/api/notifications/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          senderEmail,
+          recipientEmail: receiverEmail,
+          message: `${senderName} has shown interest in your startup.`,
+          type: 'interest',
+        }),
+      });
 
       const emailRes = await fetch('http://localhost:5000/api/email/send-interest', {
         method: 'POST',
@@ -84,19 +105,26 @@ function InvestorDashboard() {
           receiverEmail,
           senderName,
           recipientName,
-        })
+        }),
       });
 
-      const emailResult = await emailRes.json();
+      const notifSuccess = notifRes.ok;
+      const emailSuccess = emailRes.ok;
 
-      if (emailRes.ok) {
-        alert('Interest shown and email sent!');
+      if (notifSuccess && emailSuccess) {
+        addNotification(`Interest shown to ${recipientName}, email & notification sent!`, 'success');
+        // setConnectionStatus(prev => ({ ...prev, [receiverEmail]: true }));
+      } else if (notifSuccess) {
+        addNotification(`Notification sent but email failed`, 'warning');
+      } else if (emailSuccess) {
+        addNotification(`Email sent but notification failed`, 'warning');
       } else {
-        alert(emailResult.message || 'Connection created but email failed');
+        addNotification(`Connection created, but both email and notification failed`, 'error');
       }
 
     } catch (error) {
-      alert('Server error');
+      console.error(error);
+      addNotification('Server error occurred', 'error');
     }
   };
 
@@ -107,7 +135,10 @@ function InvestorDashboard() {
       (!selectedFilters.businessModel || startup.businessModel === selectedFilters.businessModel) &&
       (!selectedFilters.stage || startup.stage === selectedFilters.stage) &&
       (!selectedFilters.country || startup.country === selectedFilters.country) &&
-      (!selectedFilters.amountRange || (startup.amountSeeking >= selectedFilters.amountRange[0] && startup.amountSeeking <= selectedFilters.amountRange[1]))
+      (!selectedFilters.amountRange || (
+        startup.amountSeeking >= selectedFilters.amountRange[0] &&
+        startup.amountSeeking <= selectedFilters.amountRange[1]
+      ))
     );
   });
 
@@ -249,6 +280,7 @@ function InvestorDashboard() {
                   <button
                     className="interest-btn"
                     onClick={() => handleShowInterest(startup)}
+                    // disabled={connectionStatus[startup.email]} // Optional: prevent re-click
                   >
                     Show Interest
                   </button>

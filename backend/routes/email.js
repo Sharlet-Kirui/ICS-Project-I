@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const Connection = require('../models/connectionModel');
 const InvestorProfile = require('../models/investorProfileModel');
 const StartupProfile = require('../models/startupProfileModel'); // NEW
+
 require('dotenv').config();
 
 // Define transporter
@@ -82,6 +83,7 @@ router.post('/send-interest', async (req, res) => {
       subject: `${senderType === 'investor' ? 'An Investor' : 'A Startup'} is Interested in You!`,
       html: htmlContent
     });
+
 
   // Check for existing connection in either direction
   const existingConnection = await Connection.findOne({

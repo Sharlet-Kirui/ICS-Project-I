@@ -21,6 +21,9 @@ const startupDashboardRoutes = require('./routes/StartupDashboard');
 const investorDashboardRoutes = require('./routes/InvestorDashboard');
 const emailRoutes = require('./routes/email');
 const connectionRoutes = require('./routes/connection');
+const notificationRoutes = require('./routes/notifications');
+const investorRoutes = require('./routes/investors');
+const startupRoutes = require('./routes/startups');
 
 // === ROUTE REGISTRATION ===
 app.use('/api/auth', authStartupRoutes);
@@ -30,7 +33,9 @@ app.use('/api/investors', startupDashboardRoutes);
 app.use('/api/startups', investorDashboardRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/connections', connectionRoutes);
-
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/investors', investorRoutes);
+app.use('/api/startups', startupRoutes);
 
 // === TEST ROUTE ===
 app.get('/api/message', (req, res) => {

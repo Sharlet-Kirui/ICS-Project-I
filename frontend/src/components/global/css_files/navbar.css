@@ -125,3 +125,123 @@
     gap: 20px;
   }
 }
+/* Notifications wrapper */
+.notifications-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.notifications-wrapper:hover .notifications-dropdown-content {
+  display: block;
+}
+
+/* Notification badge */
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* Notifications dropdown */
+.notifications-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  min-width: 300px;
+  max-width: 400px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Notifications header */
+.notifications-header {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notifications-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.clear-all-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.clear-all-btn:hover {
+  background-color: #f8f9fa;
+}
+
+/* Notifications list */
+.notifications-list {
+  padding: 0;
+}
+
+.no-notifications {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+}
+
+/* Individual notification item */
+.notification-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+  background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+  background-color: #e7f3ff;
+  border-left: 3px solid #007bff;
+}
+
+.notification-item.read {
+  background-color: white;
+  opacity: 0.8;
+}
+
+.notification-message {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.notification-time {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Last item shouldn't have bottom border */
+.notification-item:last-child {
+  border-bottom: none;
+}

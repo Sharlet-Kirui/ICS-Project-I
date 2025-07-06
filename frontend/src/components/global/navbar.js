@@ -3,11 +3,19 @@ import './css_files/navbar.css';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FiHome, FiUsers, FiBell, FiUser } from 'react-icons/fi';
 import logoImage from './assets/logo.png';
+import { useNotification } from '../../contexts/NotificationContext';
 
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const currentPath = location.pathname;
+
+  // Get notifications from context
+  const { notifications, unreadCount, markAsRead, clearNotifications } = useNotification();
+
+  // Remove these lines - they're causing the conflict:
+  // const [notifications, setNotifications] = useState([]);
+  // const [unreadCount, setUnreadCount] = useState(0);
 
   const [userType, setUserType] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -52,51 +60,83 @@ function Navbar() {
   const context = detectContext();
 
   const renderDashboardLinks = () => (
-  <>
-    <Link
-      to={userType === 'investor' ? '/investor/dashboard' : '/dashboard'}
-      className={getLinkClass(userType === 'investor' ? '/investor/dashboard' : '/dashboard')}
-    >
-      <FiHome size={20} />
-      <span>Home</span>
-    </Link>
+    <>
+      <Link
+        to={userType === 'investor' ? '/investor/dashboard' : '/dashboard'}
+        className={getLinkClass(userType === 'investor' ? '/investor/dashboard' : '/dashboard')}
+      >
+        <FiHome size={20} />
+        <span>Home</span>
+      </Link>
 
-    <Link
-      to={userType === 'investor' ? '/investor/network' : '/startupNetwork'}
-      className={getLinkClass(userType === 'investor' ? '/investor/network' : '/startupNetwork')}
-    >
-      <FiUsers size={20} />
-      <span>My Network</span>
-    </Link>
+      <Link
+        to={userType === 'investor' ? '/investor/network' : '/startupNetwork'}
+        className={getLinkClass(userType === 'investor' ? '/investor/network' : '/startupNetwork')}
+      >
+        <FiUsers size={20} />
+        <span>My Network</span>
+      </Link>
 
-    <Link
-      to={userType === 'investor' ? '/investorNotifications' : '/startupNotifications'}
-      className={getLinkClass(userType === 'investor' ? '/investorNotifications' : '/startupNotifications')}
-    >
-      <FiBell size={20} />
-      <span>Notifications</span>
-    </Link>
-
-    <div className="profile-wrapper">
-      <div className="nav-link">
-        <FiUser size={20} />
-        <span>Profile</span>
+      {/* Updated Notifications with dropdown */}
+      <div className="notifications-wrapper">
+        <div className="nav-link">
+          <FiBell size={20} />
+          <span>Notifications</span>
+          {unreadCount > 0 && (
+            <span className="notification-badge">{unreadCount}</span>
+          )}
+        </div>
+        <div className="notifications-dropdown-content">
+          <div className="notifications-header">
+            <h4>Notifications</h4>
+            {notifications.length > 0 && (
+              <button onClick={clearNotifications} className="clear-all-btn">
+                Clear All
+              </button>
+            )}
+          </div>
+          <div className="notifications-list">
+            {notifications.length === 0 ? (
+              <div className="no-notifications">No notifications</div>
+            ) : (
+              notifications.slice(0, 10).map(notification => (
+              <div
+                key={notification._id || notification.id}
+                className={`notification-item ${notification.read ? 'read' : 'unread'}`}
+                onClick={() => markAsRead(notification._id || notification.id)}
+              >
+                <div className="notification-message">
+                  {notification.message}
+                </div>
+                <div className="notification-time">
+                  {new Date(notification.timestamp).toLocaleTimeString()}
+                </div>
+              </div>
+            ))
+            )}
+          </div>
+        </div>
       </div>
-      <div className="profile-dropdown-content">
-        <Link
-          to={userType === 'investor' ? '/investorProfile' : '/startupProfile'}
-          className="dropdown-link"
-        >
-          View Profile
-        </Link>
-        <button className="dropdown-link" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
-    </div>
-  </>
-);
 
+      <div className="profile-wrapper">
+        <div className="nav-link">
+          <FiUser size={20} />
+          <span>Profile</span>
+        </div>
+        <div className="profile-dropdown-content">
+          <Link
+            to={userType === 'investor' ? '/investorProfile' : '/startupProfile'}
+            className="dropdown-link"
+          >
+            View Profile
+          </Link>
+          <button className="dropdown-link" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      </div>
+    </>
+  );
 
   const renderDefaultLinks = () => {
     switch (context) {
