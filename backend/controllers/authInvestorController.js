@@ -99,9 +99,68 @@ const updateContacts = async (req, res) => {
   }
 };
 
+// Fetch investor profile
+const getInvestorProfile = async (req, res) => {
+  try {
+    const investor = await InvestorProfile.findOne({ email: req.params.email });
+    if (!investor) return res.status(404).json({ message: 'Investor not found' });
+    res.json(investor);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// FULL PROFILE UPDATE (PUT)
+const updateInvestorProfile = (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) return res.status(400).json({ message: 'Upload error', error: err.message });
+
+    try {
+      const email = req.params.email;
+      const body = req.body;
+
+      const updates = {
+        companyName: body.companyName,
+        fullName: body.fullName,
+        jobTitle: body.jobTitle,
+        country: body.country,
+        industry: body.industry,
+        fundingAmount: body.fundingAmount,
+        fundingCurrency: body.fundingCurrency,
+        website: body.website,
+        address: body.address,
+        linkedin: body.linkedin,
+        phone: `${body.countryCode || ''}${body.phone || ''}`,
+        valueOffered: body.valueOffered
+          ? Array.isArray(body.valueOffered)
+            ? body.valueOffered
+            : body.valueOffered.split(',').map(val => val.trim())
+          : []
+      };
+
+      if (req.files.profileImage) updates.profileImage = req.files.profileImage[0].path;
+      if (req.files.incorporation) updates.incorporation = req.files.incorporation[0].path;
+      if (req.files.financials) updates.financials = req.files.financials[0].path;
+
+      const investor = await InvestorProfile.findOneAndUpdate(
+        { email },
+        { $set: updates },
+        { new: true }
+      );
+
+      if (!investor) return res.status(404).json({ message: 'Investor not found' });
+      res.json({ message: 'Profile updated successfully', investor });
+    } catch (error) {
+      res.status(500).json({ message: 'Update failed', error: error.message });
+    }
+  });
+};
+
 module.exports = {
   signup,
   updateDetails,
   uploadDocuments,
-  updateContacts
+  updateContacts,
+  getInvestorProfile,
+  updateInvestorProfile
 };

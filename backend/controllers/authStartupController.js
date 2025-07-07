@@ -101,32 +101,64 @@ const updateContacts = async (req, res) => {
   }
 };
 
-const saveDetails = async (req, res) => {
-  const { email } = req.params;
+// FETCH PROFILE
+const getStartupProfile = async (req, res) => {
   try {
-    const profile = await StartupProfile.findOne({ email });
-    if (!profile) return res.status(404).json({ message: 'Startup not found' });
-
-    Object.assign(profile, req.body);
-    await profile.save();
-    res.json({ message: 'Details updated successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error saving details', error: err.message });
+    const startup = await StartupProfile.findOne({ email: req.params.email });
+    if (!startup) return res.status(404).json({ message: 'Startup not found' });
+    res.json(startup);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
 
-const saveContacts = async (req, res) => {
-  const { email } = req.params;
-  try {
-    const profile = await StartupProfile.findOne({ email });
-    if (!profile) return res.status(404).json({ message: 'Startup not found' });
+// FULL PROFILE UPDATE (PUT)
+const updateStartupProfile = (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) return res.status(400).json({ message: 'Upload error', error: err.message });
 
-    Object.assign(profile, req.body);
-    await profile.save();
-    res.json({ message: 'Contact info saved' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error saving contacts', error: err.message });
-  }
+    try {
+      const email = req.params.email;
+      const body = req.body;
+
+      const updates = {
+        companyName: body.companyName,
+        pitch: body.pitch,
+        industry: body.industry,
+        businessModel: body.businessModel,
+        stage: body.stage,
+        country: body.country,
+        foundingYear: body.foundingYear,
+        teamSize: body.teamSize,
+        description: body.description,
+        revenue: body.revenue,
+        revenueCurrency: body.revenueCurrency,
+        users: body.users,
+        amountSeeking: body.amountSeeking,
+        amountCurrency: body.amountCurrency,
+        website: body.website,
+        address: body.address,
+        linkedin: body.linkedin,
+        phone: `${body.countryCode || ''}${body.phone || ''}`
+      };
+
+      if (req.files.profileImageUrl) updates.profileImageUrl = req.files.profileImageUrl[0].path;
+      if (req.files.pitchDeck) updates.pitchDeckUrl = req.files.pitchDeck[0].path;
+      if (req.files.registrationCertificate) updates.registrationCertificateUrl = req.files.registrationCertificate[0].path;
+      if (req.files.financials) updates.financialsUrl = req.files.financials[0].path;
+
+      const startup = await StartupProfile.findOneAndUpdate(
+        { email },
+        { $set: updates },
+        { new: true }
+      );
+
+      if (!startup) return res.status(404).json({ message: 'Startup not found' });
+      res.json({ message: 'Profile updated successfully', startup });
+    } catch (error) {
+      res.status(500).json({ message: 'Update failed', error: error.message });
+    }
+  });
 };
 
 module.exports = {
@@ -134,6 +166,6 @@ module.exports = {
   updateDetails,
   uploadDocuments,
   updateContacts,
-  saveDetails,
-  saveContacts,
+  getStartupProfile,
+  updateStartupProfile
 };

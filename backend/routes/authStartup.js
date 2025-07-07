@@ -5,13 +5,15 @@ const {
   updateDetails,
   uploadDocuments,
   updateContacts,
-  saveDetails,
-  saveContacts
+  getStartupProfile,
+  updateStartupProfile
 } = require('../controllers/authStartupController');
 
 router.post('/signup', signup);
 router.put('/details/:email', updateDetails);
 router.put('/documents/:email', uploadDocuments);
 router.put('/contacts/:email', updateContacts);
+router.get('/profile/:email', getStartupProfile);
+router.put('/profile/:email', updateStartupProfile);
 
 module.exports = router;
