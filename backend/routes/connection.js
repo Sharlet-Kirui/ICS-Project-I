@@ -48,9 +48,9 @@ router.get('/:email', async (req, res) => {
 
   try {
     const pending = await Connection.find({
-      receiverEmail: email,
-      status: 'pending',
-    });
+    receiverEmail: email,
+    status: 'sent',
+  });
 
     const accepted = await Connection.find({
       $or: [
