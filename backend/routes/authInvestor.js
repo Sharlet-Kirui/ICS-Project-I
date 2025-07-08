@@ -6,9 +6,7 @@ const {
   uploadDocuments,
   updateContacts,
   getInvestorProfile,
-  updateInvestorProfile,
-  saveDetails,
-  saveContacts
+  updateInvestorProfile
 } = require('../controllers/authInvestorController');
 
 router.post('/signup', signup);
