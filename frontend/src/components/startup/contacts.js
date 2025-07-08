@@ -40,7 +40,7 @@ function Contacts() {
 
     const data = await response.json();
     if (response.ok) {
-      alert('Sign-up complete!');
+      alert('Sign-up complete! Your profile is under review. You will be notified via email once approved.');
       navigate('/login');
     } else {
       alert(data.message || 'Failed to save contacts.');

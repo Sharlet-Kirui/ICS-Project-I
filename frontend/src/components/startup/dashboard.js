@@ -14,7 +14,7 @@ function Dashboard() {
   const [startupProfile, setStartupProfile] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/investors')
+    fetch('http://localhost:5000/api/investors/approved')
       .then(res => res.json())
       .then(data => setInvestors(data))
       .catch(err => console.error(err));

@@ -129,4 +129,29 @@ router.post('/send-interest', async (req, res) => {
   }
 });
 
+// POST /api/email/send-approval
+router.post('/send-approval', async (req, res) => {
+  const { email, name } = req.body;
+
+  const htmlContent = `
+    <p>Hi ${name || 'User'},</p>
+    <p>Congratulations! Your account has been approved. You can now log in to the platform.</p>
+    <a href="http://localhost:3000/login" style="padding: 10px 20px; background-color: #2c3e50; color: white; text-decoration: none;">Login</a>
+  `;
+
+  try {
+    await transporter.sendMail({
+      from: `"Bridge Africa" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: 'Your Account Has Been Approved',
+      html: htmlContent
+    });
+
+    res.status(200).json({ message: 'Approval email sent.' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to send approval email' });
+  }
+});
+
+
 module.exports = router;

@@ -4,6 +4,7 @@ const InvestorProfile = require('../models/investorProfileModel');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const path = require('path');
+const transporter = require('../config/emailTransporter');
 
 // SIGNUP
 const signup = async (req, res) => {
@@ -14,7 +15,7 @@ const signup = async (req, res) => {
     if (existingUser) return res.status(400).json({ message: 'Email already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new InvestorProfile({ companyName, email, password: hashedPassword });
+    const newUser = new InvestorProfile({ companyName, email, password: hashedPassword,  status: 'pending'  });
     await newUser.save();
 
     res.status(201).json({ message: 'Investor registered successfully' });
@@ -93,7 +94,49 @@ const updateContacts = async (req, res) => {
       { new: true }
     );
     if (!investor) return res.status(404).json({ message: 'Investor not found' });
-    res.json({ message: 'Contact info saved', profile: investor });
+
+  await transporter.sendMail({
+  from: `"Bridge Africa" <${process.env.EMAIL_USER}>`,
+  to: investor.email,
+  subject: 'Your Investor Profile is Under Review',
+  html:
+   `
+      <div style="font-family: 'Poppins', Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
+        <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 12px; padding: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+          <div style="text-align: center;">
+            <h2 style="color: #2c3e50;">Your Investor Profile is Under Review</h2>
+          </div>
+
+          <p style="font-size: 16px; color: #333;">
+            Dear <strong> ${investor.companyName || 'User'}</strong>,
+          </p>
+
+          <p style="font-size: 16px; color: #333;">
+            Thank you for completing your registration on Bridge Africa.
+          </p>
+
+          <p style="font-size: 16px; color: #333;">
+            Your profile is under review by our team. You will receive an email once it has been approved or rejected.
+          </p>
+
+          <p style="font-size: 16px; color: #333;">
+            Thank you,<br>Bridge Africa Team
+          </p>
+
+          <p style="font-size: 14px; color: #999; text-align: center;">
+            If you did not expect this message, you can safely ignore it.
+          </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #999;">
+          © ${new Date().getFullYear()} InvestorConnect Platform. All rights reserved.
+        </div>
+      </div>
+    `
+});
+
+    res.json({ message: 'Contact info saved. Your profile is under review.', profile: investor });
+
   } catch (error) {
     res.status(500).json({ message: 'Update error', error: error.message });
   }

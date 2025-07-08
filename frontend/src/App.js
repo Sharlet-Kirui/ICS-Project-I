@@ -14,13 +14,13 @@ import Login from './components/global/login';
 import StartupDashboard from './components/startup/dashboard';
 import InvestorDashboard from './components/investor/dashboard';
 import ProtectedRoute from './components/global/ProtectedRoute';
-import ContactForm from './components/investor/contactform';
 import StartupNetwork from './components/startup/network';
 import StartupNotifications from './components/startup/notifications';
 import StartupProfile from './components/startup/profile';
 import InvestorNetwork from './components/investor/network';
 import InvestorNotifications from './components/investor/notifications';
 import InvestorProfile from './components/investor/profile';
+import AdminDashboard from './components/admin/AdminDashboard';
 
 function App() {
   return (
@@ -37,7 +37,6 @@ function App() {
         <Route path="/investor/documents" element={<InvestorDocuments />} />
         <Route path="/investor/contacts" element={<InvestorContacts />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/contactform" element={<ContactForm />} />
 
         <Route
           path="/dashboard"
@@ -104,7 +103,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route path="/admin" element={<AdminDashboard />} />
         {/* Fallback */}
         <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
       </Routes>

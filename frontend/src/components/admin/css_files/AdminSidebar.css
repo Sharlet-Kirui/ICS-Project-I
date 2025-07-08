@@ -1,0 +1,37 @@
+/* Add to your existing CSS file or sidebar section */
+
+/* Admin Sidebar */
+.admin-sidebar {
+  width: 270px;
+  background-color: #C1DCDC;
+  padding: 30px;
+  position: sticky;
+  top: 100px;
+  height: 100vh;
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-sidebar button {
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+  text-align: left;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #1E1E1E;
+  transition: background-color 0.3s ease;
+}
+
+.admin-sidebar button:hover {
+  background-color: #b0d3d3;
+}
+
+.admin-sidebar button.active {
+  background-color: #fff;
+  border: 1px solid #1E1E1E;
+}

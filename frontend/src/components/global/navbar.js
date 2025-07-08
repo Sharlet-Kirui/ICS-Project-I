@@ -48,6 +48,7 @@ function Navbar() {
     if (currentPath.includes('/startupNetwork')) return 'dashboard';
     if (currentPath.includes('/investorProfile')) return 'dashboard';
     if (currentPath.includes('/startupProfile')) return 'dashboard';
+    if (currentPath === '/admin') return 'admin';
     if (currentPath === '/signup') return 'signup';
     if (currentPath === '/details') return 'details';
     if (currentPath === '/documents') return 'documents';
@@ -167,6 +168,13 @@ function Navbar() {
             <Link to="#" className="nav-link" onClick={() => window.history.back()}>Back</Link>
           </>
         );
+      case 'admin':
+        return (
+          <>
+          <Link to="/" className={getLinkClass('/')}>Home</Link>
+          
+          </>
+        )  
       default:
         return (
           <>

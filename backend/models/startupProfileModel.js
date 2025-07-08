@@ -41,7 +41,13 @@ const startupProfileSchema = new mongoose.Schema({
   countryCode: { type: String },
   website: { type: String },
   address: { type: String },
-  linkedin: { type: String }
+  linkedin: { type: String },
+
+  status: {
+  type: String,
+  enum: ['pending', 'approved', 'rejected'],
+  default: 'pending'
+}
 }, {
   timestamps: true
 });

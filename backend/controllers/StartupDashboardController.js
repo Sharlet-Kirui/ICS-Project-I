@@ -3,16 +3,23 @@ const InvestorProfile = require('../models/investorProfileModel');
 
 const getInvestors = async (req, res) => {
   try {
-    const investors = await InvestorProfile.find({}, '-password -incorporation -financials');
+    const investors = await InvestorProfile.find({}, '-password');
     res.status(200).json(investors);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch investor profiles' });
   }
 };
-
+const getApprovedInvestors = async (req, res) => {
+  try {
+    const investors = await InvestorProfile.find({ status: 'approved' }, '-password');
+    res.status(200).json(investors);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch investor profiles' });
+  }
+};
 const getFilters = async (req, res) => {
   try {
-    const investors = await InvestorProfile.find();
+    const investors = await InvestorProfile.find({ status: 'approved' });
     
     const valueOffered = [...new Set(investors.flatMap(inv => inv.valueOffered))];
     const countries = [...new Set(investors.map(inv => inv.country).filter(Boolean))];
@@ -34,5 +41,6 @@ const getFilters = async (req, res) => {
 
 module.exports = {
   getInvestors,
+  getApprovedInvestors,
   getFilters
 };

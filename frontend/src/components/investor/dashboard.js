@@ -12,12 +12,11 @@ function InvestorDashboard() {
   const [filterOptions, setFilterOptions] = useState({});
   const [amountRange, setAmountRange] = useState([0, 0]);
   const [investorProfile, setInvestorProfile] = useState(null);
-  // const [connectionStatus, setConnectionStatus] = useState({}); // Optional: track button disable
 
   const { addNotification } = useNotification();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/startups')
+    fetch('http://localhost:5000/api/startups/approved')
       .then(res => res.json())
       .then(data => setStartups(data))
       .catch(err => console.error(err));
@@ -32,14 +31,14 @@ function InvestorDashboard() {
   }, []);
 
   useEffect(() => {
-  const email = localStorage.getItem('email');
-  if (email) {
-    fetch(`http://localhost:5000/api/investors/profile/${email}`)
-      .then(res => res.json())
-      .then(data => setInvestorProfile(data))
-      .catch(err => console.error('Error fetching investor profile:', err));
-  }
-}, []);
+    const email = localStorage.getItem('email');
+    if (email) {
+      fetch(`http://localhost:5000/api/investors/profile/${email}`)
+        .then(res => res.json())
+        .then(data => setInvestorProfile(data))
+        .catch(err => console.error('Error fetching investor profile:', err));
+    }
+  }, []);
 
   const handleFilterChange = (key, value) => {
     setSelectedFilters(prev => ({
@@ -113,7 +112,6 @@ function InvestorDashboard() {
 
       if (notifSuccess && emailSuccess) {
         addNotification(`Interest shown to ${recipientName}, email & notification sent!`, 'success');
-        // setConnectionStatus(prev => ({ ...prev, [receiverEmail]: true }));
       } else if (notifSuccess) {
         addNotification(`Notification sent but email failed`, 'warning');
       } else if (emailSuccess) {
@@ -207,13 +205,13 @@ function InvestorDashboard() {
           <h5>Amount Seeking</h5>
           <input
             type="range"
-            min={amountRange[0] || 0}
-            max={amountRange[1] || 0}
+            min={amountRange[0] ?? 0}
+            max={amountRange[1] ?? 0}
             step="1000"
-            value={selectedFilters.amountRange?.[1] || amountRange[1]}
+            value={(selectedFilters.amountRange?.[1] ?? amountRange[1]) ?? 0}
             onChange={e => handleFilterChange('amountRange', [0, parseInt(e.target.value)])}
           />
-          <div>Up to: {selectedFilters.amountRange?.[1] || amountRange[1]}</div>
+          <div>Up to: {(selectedFilters.amountRange?.[1] ?? amountRange[1]) ?? 0}</div>
         </div>
 
         <div className="selected-filters">
@@ -280,7 +278,6 @@ function InvestorDashboard() {
                   <button
                     className="interest-btn"
                     onClick={() => handleShowInterest(startup)}
-                    // disabled={connectionStatus[startup.email]} // Optional: prevent re-click
                   >
                     Show Interest
                   </button>

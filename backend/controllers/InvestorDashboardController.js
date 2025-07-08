@@ -9,10 +9,17 @@ const getStartups = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch startup profiles' });
   }
 };
-
+const getApprovedStartups = async (req, res) => {
+  try {
+    const startups = await StartupProfile.find({ status: 'approved' }, '-password -incorporation -financials');
+    res.status(200).json(startups);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch approved startup profiles' });
+  }
+};
 const getFilters = async (req, res) => {
   try {
-    const startups = await StartupProfile.find();
+    const startups = await StartupProfile.find({ status: 'approved' });
 
     const industries = [...new Set(startups.map(s => s.industry).filter(Boolean))];
     const businessModels = [...new Set(startups.map(s => s.businessModel).filter(Boolean))];
@@ -35,5 +42,6 @@ const getFilters = async (req, res) => {
 
 module.exports = {
   getStartups,
+  getApprovedStartups,
   getFilters
 };
