@@ -158,7 +158,7 @@ function InvestorNetwork() {
           </div>
         </div>
 
-        <div className="investor-cards">
+        <div className="network-cards">
           <h2>Pending Invitations</h2>
           {pendingConnections.length ? pendingConnections.map(c => renderCard(c, 'pending')) : <p>No pending invitations</p>}
 
