@@ -98,13 +98,13 @@
 }
 
 /* ========== Investor Cards ========== */
-.investor-cards {
+.admin-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 30px;
 }
 
-.investor-card {
+.admin-card {
   background-color: #e0e0e0; /* light grey */
   border-radius: 15px;
   padding: 20px;
@@ -117,7 +117,7 @@
   gap: 20px;
 }
 
-.investor-card img {
+.admin-card img {
   width: 120px;
   height: 120px;
   border-radius: 50%;

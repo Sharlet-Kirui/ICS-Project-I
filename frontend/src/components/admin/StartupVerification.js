@@ -45,7 +45,7 @@ function StartupVerification() {
     <div className="startupverificationdashboard">
       <h2>Pending Startup Applications</h2>
       {startups.map(startup => (
-        <div key={startup.email} className="investor-card">
+        <div key={startup.email} className="admin-card">
           <div className="card-layout">
             <img src={`http://localhost:5000/${startup.profileImageUrl}`} alt={startup.companyName} />
             <div className="card-summary">

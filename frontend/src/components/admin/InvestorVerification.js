@@ -45,7 +45,7 @@ function InvestorVerification() {
     <div className="investorverificationdashboard">
       <h2>Pending Investor Applications</h2>
       {investors.map(investor => (
-        <div key={investor.email} className="investor-card">
+        <div key={investor.email} className="admin-card">
           <div className="card-layout">
             <img src={`http://localhost:5000/${investor.profileImage}`} alt={investor.fullName} />
             <div className="card-summary">
