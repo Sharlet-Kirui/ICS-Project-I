@@ -91,6 +91,16 @@
 .details-side p {
   margin: 6px 0;
 }
+.details-side button{
+  background-color: #C1DCDC;
+  border: 1px solid #1E1E1E;
+  border-radius: 21px;
+  padding: 8px 16px;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
 .modal {
   position: fixed;
