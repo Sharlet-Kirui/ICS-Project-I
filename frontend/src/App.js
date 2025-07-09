@@ -103,7 +103,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/$987612345" element={<AdminDashboard />} />
         {/* Fallback */}
         <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
       </Routes>

@@ -48,7 +48,7 @@ function Navbar() {
     if (currentPath.includes('/startupNetwork')) return 'dashboard';
     if (currentPath.includes('/investorProfile')) return 'dashboard';
     if (currentPath.includes('/startupProfile')) return 'dashboard';
-    if (currentPath === '/admin') return 'admin';
+    if (currentPath === '/$987612345') return 'admin';
     if (currentPath === '/signup') return 'signup';
     if (currentPath === '/details') return 'details';
     if (currentPath === '/documents') return 'documents';
@@ -147,8 +147,8 @@ function Navbar() {
         return (
           <>
             <Link to="/" className={getLinkClass('/')}>Home</Link>
-            <Link to="/investor" className={getLinkClass('/investor')}>Investor</Link>
-            <Link to="/startup" className={getLinkClass('/startup')}>Startup</Link>
+            <Link to="/#investors" className={getLinkClass('/investor')}>Investor</Link>
+            <Link to="/#startups" className={getLinkClass('/startup')}>Startup</Link>
             <Link to="/login" className={getLinkClass('/login')}>Login</Link>
           </>
         );
