@@ -89,11 +89,11 @@ function InvestorSignUp() {
               </div>
               <div className="form-field">
                 <label>New Password</label>
-                <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+                <input type="password" name="password" value={formData.password} onChange={handleChange} required minLength={8} />
               </div>
               <div className="form-field">
                 <label>Confirm Password</label>
-                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required />
+                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} required minLength={8} />
               </div>
               <button type="submit" className="next-button">Next</button>
             </form>
