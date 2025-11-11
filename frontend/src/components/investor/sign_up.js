@@ -35,7 +35,7 @@ function InvestorSignUp() {
   }
 
   try {
-    const response = await fetch('https://ics-project.viscerealplate.me/api/auth/investor/signup', {
+    const response = await fetch('https://ics-project.viscerealplate.me/api/api/auth/investor/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

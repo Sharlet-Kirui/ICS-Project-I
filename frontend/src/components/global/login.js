@@ -14,7 +14,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://ics-project.viscerealplate.me/api/auth/login', {
+      const response = await fetch('https://ics-project.viscerealplate.me/api/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

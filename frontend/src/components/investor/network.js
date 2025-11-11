@@ -11,7 +11,7 @@ function InvestorNetwork() {
   const email = localStorage.getItem('email');
 
   useEffect(() => {
-    fetch(`https://ics-project.viscerealplate.me/api/connections/${email}`)
+    fetch(`https://ics-project.viscerealplate.me/api/api/connections/${email}`)
       .then(res => res.json())
       .then(data => {
         setPendingConnections(data.pending);
@@ -20,7 +20,7 @@ function InvestorNetwork() {
       })
       .catch(err => console.error(err));
 
-    fetch(`https://ics-project.viscerealplate.me/api/startups`)
+    fetch(`https://ics-project.viscerealplate.me/api/api/startups`)
       .then(res => res.json())
       .then(data => setStartups(data))
       .catch(err => console.error(err));
@@ -36,7 +36,7 @@ function InvestorNetwork() {
   };
   const handleResponse = async (connectionId, action) => {
     try {
-      const res = await fetch('https://ics-project.viscerealplate.me/api/connections/respond', {
+      const res = await fetch('https://ics-project.viscerealplate.me/api/api/connections/respond', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ connectionId, action }),

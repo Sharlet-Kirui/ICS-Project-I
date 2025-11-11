@@ -37,7 +37,7 @@ function InvestorDocuments() {
   }
 
   try {
-    const response = await fetch(`https://ics-project.viscerealplate.me/api/auth/investor/documents/${email}`, {
+    const response = await fetch(`https://ics-project.viscerealplate.me/api/api/auth/investor/documents/${email}`, {
       method: 'PUT',
       body: formData
     });

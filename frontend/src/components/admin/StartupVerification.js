@@ -9,7 +9,7 @@ function StartupVerification() {
   const [rejectionComments, setRejectionComments] = useState({});
 
   useEffect(() => {
-    fetch('https://ics-project.viscerealplate.me/api/verification/startups/pending')
+    fetch('https://ics-project.viscerealplate.me/api/api/verification/startups/pending')
       .then(res => res.json())
       .then(data => setStartups(data))
       .catch(err => console.error('Failed to fetch startups:', err));
@@ -26,7 +26,7 @@ function StartupVerification() {
   const handleVerify = async (email, decision) => {
     const comment = rejectionComments[email] || '';
     try {
-      const res = await fetch('https://ics-project.viscerealplate.me/api/verification/startups/verify', {
+      const res = await fetch('https://ics-project.viscerealplate.me/api/api/verification/startups/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, decision, comment })

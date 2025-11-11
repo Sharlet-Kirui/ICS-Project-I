@@ -9,7 +9,7 @@ function InvestorVerification() {
   const [rejectionComments, setRejectionComments] = useState({});
 
   useEffect(() => {
-    fetch('https://ics-project.viscerealplate.me/api/verification/investors/pending')
+    fetch('https://ics-project.viscerealplate.me/api/api/verification/investors/pending')
       .then(res => res.json())
       .then(data => setInvestors(data))
       .catch(err => console.error('Failed to fetch investors:', err));
@@ -26,7 +26,7 @@ function InvestorVerification() {
   const handleVerify = async (email, decision) => {
     const comment = rejectionComments[email] || '';
     try {
-      const res = await fetch('https://ics-project.viscerealplate.me/api/verification/investors/verify', {
+      const res = await fetch('https://ics-project.viscerealplate.me/api/api/verification/investors/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, decision, comment })

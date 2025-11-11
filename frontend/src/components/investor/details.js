@@ -48,7 +48,7 @@ function Details() {
     e.preventDefault();
     try {
       const email = localStorage.getItem('investorEmail');
-      const response = await fetch(`https://ics-project.viscerealplate.me/api/auth/investor/details/${email}`, {
+      const response = await fetch(`https://ics-project.viscerealplate.me/api/api/auth/investor/details/${email}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

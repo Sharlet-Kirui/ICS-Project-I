@@ -8,7 +8,7 @@ function StartupProfile() {
 
 useEffect(() => {
   const email = localStorage.getItem('email');
-  fetch(`https://ics-project.viscerealplate.me/api/startups/profile/${email}`)
+  fetch(`https://ics-project.viscerealplate.me/api/api/startups/profile/${email}`)
     .then(res => res.json())
     .then(data => {
       setFormData(data);
@@ -35,7 +35,7 @@ useEffect(() => {
     const form = new FormData();
     for (const key in formData) form.append(key, formData[key]);
 
-    const res = await fetch(`https://ics-project.viscerealplate.me/api/startups/profile/${email}`, {
+    const res = await fetch(`https://ics-project.viscerealplate.me/api/api/startups/profile/${email}`, {
       method: 'PUT',
       body: form
     });

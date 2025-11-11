@@ -20,8 +20,8 @@ function UsersManagement() {
     const fetchData = async () => {
       try {
         const [startupsRes, investorsRes] = await Promise.all([
-          fetch('https://ics-project.viscerealplate.me/api/startups').then(res => res.json()),
-          fetch('https://ics-project.viscerealplate.me/api/investors').then(res => res.json())
+          fetch('https://ics-project.viscerealplate.me/api/api/startups').then(res => res.json()),
+          fetch('https://ics-project.viscerealplate.me/api/api/investors').then(res => res.json())
         ]);
         setStartups(startupsRes);
         setInvestors(investorsRes);

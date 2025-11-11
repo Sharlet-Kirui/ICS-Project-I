@@ -16,12 +16,12 @@ function InvestorDashboard() {
   const { addNotification } = useNotification();
 
   useEffect(() => {
-    fetch('https://ics-project.viscerealplate.me/api/startups/approved')
+    fetch('https://ics-project.viscerealplate.me/api/api/startups/approved')
       .then(res => res.json())
       .then(data => setStartups(data))
       .catch(err => console.error(err));
 
-    fetch('https://ics-project.viscerealplate.me/api/startups/filters')
+    fetch('https://ics-project.viscerealplate.me/api/api/startups/filters')
       .then(res => res.json())
       .then(data => {
         setFilterOptions(data);
@@ -33,7 +33,7 @@ function InvestorDashboard() {
   useEffect(() => {
     const email = localStorage.getItem('email');
     if (email) {
-      fetch(`https://ics-project.viscerealplate.me/api/investors/profile/${email}`)
+      fetch(`https://ics-project.viscerealplate.me/api/api/investors/profile/${email}`)
         .then(res => res.json())
         .then(data => setInvestorProfile(data))
         .catch(err => console.error('Error fetching investor profile:', err));
@@ -72,7 +72,7 @@ function InvestorDashboard() {
     const recipientName = startup.companyName;
 
     try {
-      const connectionRes = await fetch('https://ics-project.viscerealplate.me/api/connections/create', {
+      const connectionRes = await fetch('https://ics-project.viscerealplate.me/api/api/connections/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ senderEmail, senderType, receiverEmail, receiverType }),
@@ -85,7 +85,7 @@ function InvestorDashboard() {
         return;
       }
 
-      const notifRes = await fetch('https://ics-project.viscerealplate.me/api/notifications/create', {
+      const notifRes = await fetch('https://ics-project.viscerealplate.me/api/api/notifications/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -96,7 +96,7 @@ function InvestorDashboard() {
         }),
       });
 
-      const emailRes = await fetch('https://ics-project.viscerealplate.me/api/email/send-interest', {
+      const emailRes = await fetch('https://ics-project.viscerealplate.me/api/api/email/send-interest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

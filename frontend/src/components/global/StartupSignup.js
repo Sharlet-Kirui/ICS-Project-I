@@ -35,7 +35,7 @@ function StartupSignUp() {
     }
 
     try {
-      const response = await fetch('https://ics-project.viscerealplate.me/api/auth/signup', {
+      const response = await fetch('https://ics-project.viscerealplate.me/api/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

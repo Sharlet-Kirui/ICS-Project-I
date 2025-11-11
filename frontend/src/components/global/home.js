@@ -20,12 +20,12 @@ function Home() {
     }
   }, [location]);
   useEffect(() => {
-    fetch('https://ics-project.viscerealplate.me/api/startups/approved')
+    fetch('https://ics-project.viscerealplate.me/api/api/startups/approved')
       .then(res => res.json())
       .then(data => setStartups(data.slice(0, 3))) // show only 3
       .catch(err => console.error('Failed to fetch startups', err));
 
-    fetch('https://ics-project.viscerealplate.me/api/investors/approved')
+    fetch('https://ics-project.viscerealplate.me/api/api/investors/approved')
       .then(res => res.json())
       .then(data => setInvestors(data.slice(0, 3))) // show only 3
       .catch(err => console.error('Failed to fetch investors', err));

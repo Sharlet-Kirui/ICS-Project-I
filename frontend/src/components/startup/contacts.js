@@ -32,7 +32,7 @@ function Contacts() {
   e.preventDefault();
   const email = localStorage.getItem('email');
   try {
-    const response = await fetch(`https://ics-project.viscerealplate.me/api/auth/contacts/${email}`, {
+    const response = await fetch(`https://ics-project.viscerealplate.me/api/api/auth/contacts/${email}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

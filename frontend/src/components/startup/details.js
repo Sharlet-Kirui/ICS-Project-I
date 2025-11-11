@@ -59,7 +59,7 @@ function Details() {
   try {
     const email = localStorage.getItem('email'); // Assumes email is stored during signup
     
-    const response = await fetch(`https://ics-project.viscerealplate.me/api/auth/details/${email}`, {
+    const response = await fetch(`https://ics-project.viscerealplate.me/api/api/auth/details/${email}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

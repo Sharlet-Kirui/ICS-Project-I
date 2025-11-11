@@ -15,8 +15,8 @@ const AdminOverview = () => {
     const fetchData = async () => {
       try {
         const [startupRes, investorRes] = await Promise.all([
-          axios.get('https://ics-project.viscerealplate.me/api/startups'),
-          axios.get('https://ics-project.viscerealplate.me/api/investors')
+          axios.get('https://ics-project.viscerealplate.me/api/api/startups'),
+          axios.get('https://ics-project.viscerealplate.me/api/api/investors')
         ]);
         setStartups(startupRes.data);
         setInvestors(investorRes.data);

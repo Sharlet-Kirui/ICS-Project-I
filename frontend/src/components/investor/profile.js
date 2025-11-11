@@ -8,7 +8,7 @@ function InvestorProfile() {
 
   useEffect(() => {
     const email = localStorage.getItem('email');
-    fetch(`https://ics-project.viscerealplate.me/api/auth/investor/profile/${email}`)
+    fetch(`https://ics-project.viscerealplate.me/api/api/auth/investor/profile/${email}`)
       .then(res => res.json())
       .then(data => {
         setFormData(data);
@@ -32,7 +32,7 @@ function InvestorProfile() {
     const form = new FormData();
     for (const key in formData) form.append(key, formData[key]);
 
-    const res = await fetch(`https://ics-project.viscerealplate.me/api/auth/investor/profile/${email}`, {
+    const res = await fetch(`https://ics-project.viscerealplate.me/api/api/auth/investor/profile/${email}`, {
       method: 'PUT',
       body: form
     });

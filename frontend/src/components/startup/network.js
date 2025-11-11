@@ -11,7 +11,7 @@ function StartupNetwork() {
   const [expandedCards, setExpandedCards] = useState({});
 
   useEffect(() => {
-    fetch(`https://ics-project.viscerealplate.me/api/connections/${email}`)
+    fetch(`https://ics-project.viscerealplate.me/api/api/connections/${email}`)
       .then(res => res.json())
       .then(data => {
         setPendingConnections(data.pending || []);
@@ -20,7 +20,7 @@ function StartupNetwork() {
       })
       .catch(err => console.error(err));
 
-    fetch(`https://ics-project.viscerealplate.me/api/investors`)
+    fetch(`https://ics-project.viscerealplate.me/api/api/investors`)
       .then(res => res.json())
       .then(data => setInvestors(data))
       .catch(err => console.error(err));
@@ -32,7 +32,7 @@ function StartupNetwork() {
 
   const handleResponse = async (connectionId, action) => {
     try {
-      const res = await fetch('https://ics-project.viscerealplate.me/api/connections/respond', {
+      const res = await fetch('https://ics-project.viscerealplate.me/api/api/connections/respond', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ connectionId, action }),
