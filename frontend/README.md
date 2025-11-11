@@ -1,6 +1,6 @@
 # Secure Web Application Deployment & Server Administration
 
-**Live URL:** `https://your-project-domain.com` (Replace with final URL)
+**Live URL:** [https://ics-project.viscerealplate.me](https://ics-project.viscerealplate.me)
 
 ---
 
@@ -16,25 +16,216 @@ This project was managed using an asynchronous workflow, allowing team members t
 
 Here is the breakdown of team roles and responsibilities:
 
-* **Person 1: Cloud & Infrastructure Lead**
-    * **Role:** Build the "house" everyone will use.
-    * **Tasks:** Provisioned the cloud server (Ubuntu 22.04), installed base software (Nginx, Git), and configured the UFW firewall.
-    * **Deliverables:** Server Public IP Address, SSH login details.
+---
 
-* **Person 2: DNS & Domain Specialist**
-    * **Role:** Buy the "address" and point it to the "house."
-    * **Tasks:** Registered the project domain and configured the 'A' and 'CNAME' DNS records to point to the server's IP.
-    * **Deliverables:** The final domain name.
+## Nathan Githinji
+### Tasks
 
-* **Person 3: SSL & Web Server Configuration**
-    * **Role:** Secure the "house" and open the "front door."
-    * **Tasks:** Generated a free SSL certificate from ZeroSSL using HTTP File Upload verification, installed the certificate on the server, and configured Nginx to enforce HTTPS.
-    * **Deliverables:** Confirmation of a working `https://` URL.
+- Create user group
+- DNS and Domain Configuration
+- Firewall Configuration (UFW)
+  
+### Explanation of each task
+### 1. Create user group
+In order to work on the same server, I created a user group. 
+```bash
+sudo groupadd server-admin-group
+```
 
-* **Person 4: Application Security & Project Manager**
-    * **Role:** Fix the application code and document the project.
-    * **Tasks:** Created the GitHub repository, invited collaborators, and pushed the initial code. Locally fixed security vulnerabilities by implementing `bcrypt` password hashing and adding HTML form validation. Wrote and maintained this README.md file.
-    * **Final Task:** Deployed the secured application to the server by cloning the GitHub repository into the Nginx web root.
+I then created new accounts for each member of the team.
+```bash
+sudo adduser brown-wangeci
+sudo adduser sharlet
+sudo adduser deborah
+```
+
+I added all users to the `server-admin-group`
+```bash
+sudo usermod -aG server-admin-group brown-wangeci
+sudo usermod -aG server-admin-group sharlet
+sudo usermod -aG server-admin-group deborah
+```
+
+---
+
+## Sharlet Kirui
+### Tasks
+- Project Management
+- Application Security
+- Documentation
+
+### Explanation
+
+### 1. Project Management
+
+a. **Created Private GitHub Repository**: Set up the private repo for the project.
+
+b. **Managed Team Access**: Invited all three of your teammates to the repository as collaborators.
+
+c. **Pushed Initial Code**: Uploaded the project's starting codebase to the repository.
+
+### 2. Application Security
+
+a. **Fixed Backend Hashing**: Edited the backend code to securely handle passwords.
+
+b. **Implemented `bcrypt.hash()`** in the signup/register functions to store a secure hash of the user's password instead of plain text.
+
+c. **Implemented `bcrypt.compare()`** in the login function to securely check the user's password against the stored hash.
+
+d. **Fixed Frontend Validation**: Edited the frontend (HTML/React) forms to improve data integrity and security.
+
+e. Added the required attribute to all form fields.
+
+f. Set `type="email"` on email fields for browser-level validation.
+
+g. Set `minLength={8}` on password fields to enforce a **minimum password length.**
+
+h. **Committed Security Fixes**: Committed all your security improvements and pushed them to the GitHub repository.
+
+### 3. Documentation
+
+a. **Helped writing the Project README**: Created the `README.md` file, explaining the project.
+
+---
+
+## Deborah Kaburu
+### Tasks
+- Implementing the SSL Certificate
+
+### Explanation
+### 1. Implementing the SSL Certificate
+For this part of the project, I was responsible for implementing the SSL certificate to secure our domain `ics-project.viscerealplate.me` . I connected to the team’s VPS through SSH and used **Certbot** with **Nginx** to request and install a free SSL certificate from **Let’s Encrypt**. Once the certificate was issued, it was automatically configured on the server, enabling encrypted HTTPS connections for the site.
+
+![SSL Certifacate configuration](https://github.com/user-attachments/assets/a9dbf2f1-6012-4e0e-b5b5-c1a42e5758e9)
+
+The process ensured that all communication between users and the server is **encrypted** and **authenticated**, protecting data from interception and tampering. Certbot also set up automatic renewal, meaning the certificate will update itself before it expires. In the end, our domain successfully runs over HTTPS, verified by the browser’s padlock icon, demonstrating secure and professional web deployment.
+
+<img width="1919" height="952" alt="image" src="https://github.com/user-attachments/assets/b3c37511-bbff-4ec7-b595-eb9d4955c064" />
+
+---
+
+## Brown Wangeci
+**Tasks**
+-  Installing Prerequisites
+-  Cloning the Project from GitHub
+-  Frontend (React) Build & Deployment
+-  Backend (Node/Express) Setup
+-  Pulling New Code & Redeploying
+-  Testing
+
+### Explanation
+### 1. Installing Prerequisites
+Node.js for backend & build, Git for version control, and Nginx for serving and proxying requests.
+
+```bash
+sudo apt install nodejs npm git nginx -y
+```
+
+### 2. Cloning the Project from GitHub
+Fetched the project file
+
+```bash
+cd /var/www
+sudo git clone https://github.com/Sharlet-Kirui/ICS-Project-I.git ics-project.viscerealplate.me
+```
+
+### 3. Frontend (React) Build & Deployment
+Build the proiject locally
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+Then copied the build to the server
+
+```bash
+scp -r ./build brown-wangeci@<server-ip>:/var/www/ics-project.viscerealplate.me/ICS-Project-I/frontend
+```
+
+**Nginx Configuration**
+
+```bash
+sudo nano /etc/nginx/sites-available/ics-project.viscerealplate.me
+
+server {
+    listen 80;
+    server_name ics-project.viscerealplate.me;
+
+    root /var/www/ics-project.viscerealplate.me/ICS-Project-I/frontend/build;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:5000/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+Then created a shortlink to the 'repository' and reloaded `Nginx` with the new configurations
+
+```bash
+sudo ln -s /etc/nginx/sites-available/ics-project.viscerealplate.me /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+This was to serve React frontend through Nginx and route API requests to the backend.
+
+### 4. Backend (Node/Express) Setup
+Ran the following commands to setup the backend in the server.
+
+```bash
+cd /var/www/ics-project.viscerealplate.me/ICS-Project-I/backend
+npm install
+sudo npm install -g pm2
+pm2 start npm --name "ics-backend" -- start
+pm2 save
+pm2 startup systemd
+sudo env PATH=$PATH:/usr/bin /usr/local/lib/node_modules/pm2/bin/pm2 startup systemd -u brown-wangeci --hp /home/brown-wangeci
+```
+
+PM2 ensures the backend runs continuously and restarts after server reboot.
+
+### 5. Pulling New Code & Redeploying
+For backend updates
+
+```bash
+cd /var/www/ics-project.viscerealplate.me/ICS-Project-I
+git pull origin main
+cd backend
+npm install
+pm2 restart ics-backend
+```
+
+For frontend updates:
+
+```bash
+npm run build   # on local machine
+scp -r ./build brown-wangeci@<207.154.233.235>:/var/www/ics-project.viscerealplate.me/ICS-Project-I/frontend
+```
+
+### 6. Testing
+
+Access the deployed site via browser [https://ics-project.viscerealplate.me](https://ics-project.viscerealplate.me) and confirm frontend and API connectivity.
+
+### Summary of Key Tools
+
+- Ubuntu Server: Hosting environment
+- Nginx: Reverse proxy and static file server
+- Node.js + Express: Backend runtime and API
+- React: Frontend framework
+- PM2: Process manager for Node.js backend
+- GitHub: Version control
+- Digital Ocean: Cloud hosting infrastructure
 
 ---
 
