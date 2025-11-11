@@ -68,6 +68,7 @@ function Login() {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  minLength={8}
                 />
               </div>
               <div className="form-field">
