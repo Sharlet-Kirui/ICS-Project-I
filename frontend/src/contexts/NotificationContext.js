@@ -12,7 +12,7 @@ export const NotificationsProvider = ({ children }) => {
   useEffect(() => {
     if (!userEmail) return;
 
-    fetch(`http://localhost:5000/api/notifications/${userEmail}`)
+    fetch(`https://ics-project.viscerealplate.me/api/notifications/${userEmail}`)
       .then(res => res.json())
       .then(data => {
         setNotifications(data);
@@ -26,7 +26,7 @@ export const NotificationsProvider = ({ children }) => {
 
   const markAsRead = async (notificationId) => {
     try {
-      await fetch(`http://localhost:5000/api/notifications/mark-read/${notificationId}`, {
+      await fetch(`https://ics-project.viscerealplate.me/api/notifications/mark-read/${notificationId}`, {
         method: 'PUT',
       });
 
@@ -43,7 +43,7 @@ export const NotificationsProvider = ({ children }) => {
   const clearNotifications = async () => {
     if (!userEmail) return;
     try {
-      await fetch(`http://localhost:5000/api/notifications/clear/${userEmail}`, {
+      await fetch(`https://ics-project.viscerealplate.me/api/notifications/clear/${userEmail}`, {
         method: 'DELETE',
       });
       setNotifications([]);

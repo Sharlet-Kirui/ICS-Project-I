@@ -14,12 +14,12 @@ function Dashboard() {
   const [startupProfile, setStartupProfile] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/investors/approved')
+    fetch('https://ics-project.viscerealplate.me/api/investors/approved')
       .then(res => res.json())
       .then(data => setInvestors(data))
       .catch(err => console.error(err));
 
-    fetch('http://localhost:5000/api/investors/filters')
+    fetch('https://ics-project.viscerealplate.me/api/investors/filters')
       .then(res => res.json())
       .then(data => {
         setFilterOptions(data);
@@ -31,7 +31,7 @@ function Dashboard() {
   useEffect(() => {
   const email = localStorage.getItem('email');
   if (email) {
-    fetch(`http://localhost:5000/api/startups/profile/${email}`)
+    fetch(`https://ics-project.viscerealplate.me/api/startups/profile/${email}`)
       .then(res => res.json())
       .then(data => setStartupProfile(data))
       .catch(err => console.error('Error fetching startup profile:', err));
@@ -75,7 +75,7 @@ function Dashboard() {
     const senderType = 'startup';
 
     try {
-      const connRes = await fetch('http://localhost:5000/api/connections/create', {
+      const connRes = await fetch('https://ics-project.viscerealplate.me/api/connections/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -93,7 +93,7 @@ function Dashboard() {
         return;
       }
 
-      const notifRes = await fetch('http://localhost:5000/api/notifications/create', {
+      const notifRes = await fetch('https://ics-project.viscerealplate.me/api/notifications/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -104,7 +104,7 @@ function Dashboard() {
         }),
       });
 
-      const emailRes = await fetch('http://localhost:5000/api/email/send-interest', {
+      const emailRes = await fetch('https://ics-project.viscerealplate.me/api/email/send-interest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -220,7 +220,7 @@ function Dashboard() {
           {filteredInvestors.map(inv => (
             <div key={inv.email} className="investor-card">
               <div className="card-layout">
-                <img src={`http://localhost:5000/${inv.profileImage}`} alt={inv.fullName} />
+                <img src={`https://ics-project.viscerealplate.me/${inv.profileImage}`} alt={inv.fullName} />
                 <div className="card-summary">
                   <h3>{inv.fullName}</h3>
                   <p>{inv.jobTitle}</p>

@@ -20,8 +20,8 @@ function UsersManagement() {
     const fetchData = async () => {
       try {
         const [startupsRes, investorsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/startups').then(res => res.json()),
-          fetch('http://localhost:5000/api/investors').then(res => res.json())
+          fetch('https://ics-project.viscerealplate.me/api/startups').then(res => res.json()),
+          fetch('https://ics-project.viscerealplate.me/api/investors').then(res => res.json())
         ]);
         setStartups(startupsRes);
         setInvestors(investorsRes);
@@ -57,7 +57,7 @@ function UsersManagement() {
     const normalizeFilePath = (filePath) => {
     if (!filePath) return '';
     const fixedPath = filePath.replace(/\\/g, '/');
-    return `http://localhost:5000/${fixedPath}`;
+    return `https://ics-project.viscerealplate.me/${fixedPath}`;
     };
 
   return (
@@ -136,7 +136,7 @@ function UsersManagement() {
                             <div className="modal-content">
                               <span className="close" onClick={() => togglePDF(`${user.email}-${i}`)}>&times;</span>
                               <iframe
-                                src={`http://localhost:5000/${url}`}
+                                src={`https://ics-project.viscerealplate.me/${url}`}
                                 width="100%"
                                 height="600px"
                                 title="Document"

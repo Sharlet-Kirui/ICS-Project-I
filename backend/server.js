@@ -9,7 +9,8 @@ const app = express();
 
 // === MIDDLEWARES ===
 app.use(cors({
-  origin: 'http://localhost:3000',
+  // origin: 'https://ics-project.viscerealplate.me/',
+  origin: 'https://ics-project.viscerealplate.me/',
   credentials: true
 }));
 app.use(express.json());

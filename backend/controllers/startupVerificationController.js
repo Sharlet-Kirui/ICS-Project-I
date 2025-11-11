@@ -35,7 +35,7 @@ const verifyStartup = async (req, res) => {
             <h2 style="color: #27ae60; text-align: center;">Welcome to Bridge Africa!</h2>
             <p style="font-size: 16px; color: #333;">Dear <strong>${startup.companyName}</strong>,</p>
             <p style="font-size: 16px; color: #333;">Your account has been approved. You can now log in and start connecting with investors.</p>
-            <p style="text-align: center;"><a href="http://localhost:3000/login" style="padding: 10px 20px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 5px;">Login Now</a></p>
+            <p style="text-align: center;"><a href="https://ics-project.viscerealplate.me/login" style="padding: 10px 20px; background-color: #27ae60; color: white; text-decoration: none; border-radius: 5px;">Login Now</a></p>
             <p style="font-size: 16px; color: #333;">Best regards,<br>Bridge Africa Team</p>
           </div>
         </div>

@@ -30,7 +30,7 @@ const verifyInvestor = async (req, res) => {
           ${
             decision === 'approved'
               ? `Congratulations! Your investor account on Bridge Africa has been approved.<br/><br/>
-                 <a href="http://localhost:3000/login" style="background:#28a745;color:white;padding:10px 15px;border:none;border-radius:5px;text-decoration:none;">Login Now</a>`
+                 <a href="https://ics-project.viscerealplate.me/login" style="background:#28a745;color:white;padding:10px 15px;border:none;border-radius:5px;text-decoration:none;">Login Now</a>`
               : `Unfortunately, your application was not approved.<br/><strong>Reason:</strong> ${comment || 'No reason provided'}`
           }
         </p>

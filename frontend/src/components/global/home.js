@@ -20,12 +20,12 @@ function Home() {
     }
   }, [location]);
   useEffect(() => {
-    fetch('http://localhost:5000/api/startups/approved')
+    fetch('https://ics-project.viscerealplate.me/api/startups/approved')
       .then(res => res.json())
       .then(data => setStartups(data.slice(0, 3))) // show only 3
       .catch(err => console.error('Failed to fetch startups', err));
 
-    fetch('http://localhost:5000/api/investors/approved')
+    fetch('https://ics-project.viscerealplate.me/api/investors/approved')
       .then(res => res.json())
       .then(data => setInvestors(data.slice(0, 3))) // show only 3
       .catch(err => console.error('Failed to fetch investors', err));
@@ -67,7 +67,7 @@ function Home() {
       <div className="homecard-list">
         {startups.map(startup => (
           <div key={startup.email} className="preview-card">
-            <img src={`http://localhost:5000/${startup.profileImageUrl}`} alt={startup.companyName} />
+            <img src={`https://ics-project.viscerealplate.me/${startup.profileImageUrl}`} alt={startup.companyName} />
             <h3>{startup.companyName}</h3>
             <p>{startup.pitch}</p>
             <button onClick={() => navigate('/login')}>See More</button>
@@ -79,7 +79,7 @@ function Home() {
       <div className="homecard-list">
         {investors.map(inv => (
           <div key={inv.email} className="preview-card">
-            <img src={`http://localhost:5000/${inv.profileImage}`} alt={inv.fullName} />
+            <img src={`https://ics-project.viscerealplate.me/${inv.profileImage}`} alt={inv.fullName} />
             <h3>{inv.fullName}</h3>
             <p>{inv.jobTitle} at {inv.companyName}</p>
             <button onClick={() => navigate('/login')}>See More</button>

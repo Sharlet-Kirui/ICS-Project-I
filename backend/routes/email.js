@@ -39,7 +39,7 @@ router.post('/send-interest', async (req, res) => {
     }
 
     const senderName = senderProfile.companyName || senderEmail;
-    const loginUrl = 'http://localhost:3000/login'; 
+    const loginUrl = 'https://ics-project.viscerealplate.me/login'; 
 
     const htmlContent = `
       <div style="font-family: 'Poppins', Arial, sans-serif; background-color: #f5f5f5; padding: 30px;">
@@ -136,7 +136,7 @@ router.post('/send-approval', async (req, res) => {
   const htmlContent = `
     <p>Hi ${name || 'User'},</p>
     <p>Congratulations! Your account has been approved. You can now log in to the platform.</p>
-    <a href="http://localhost:3000/login" style="padding: 10px 20px; background-color: #2c3e50; color: white; text-decoration: none;">Login</a>
+    <a href="https://ics-project.viscerealplate.me/login" style="padding: 10px 20px; background-color: #2c3e50; color: white; text-decoration: none;">Login</a>
   `;
 
   try {

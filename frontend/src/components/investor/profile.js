@@ -8,7 +8,7 @@ function InvestorProfile() {
 
   useEffect(() => {
     const email = localStorage.getItem('email');
-    fetch(`http://localhost:5000/api/auth/investor/profile/${email}`)
+    fetch(`https://ics-project.viscerealplate.me/api/auth/investor/profile/${email}`)
       .then(res => res.json())
       .then(data => {
         setFormData(data);
@@ -32,7 +32,7 @@ function InvestorProfile() {
     const form = new FormData();
     for (const key in formData) form.append(key, formData[key]);
 
-    const res = await fetch(`http://localhost:5000/api/auth/investor/profile/${email}`, {
+    const res = await fetch(`https://ics-project.viscerealplate.me/api/auth/investor/profile/${email}`, {
       method: 'PUT',
       body: form
     });
@@ -48,7 +48,7 @@ function InvestorProfile() {
           <h2 className="form-title">Edit Investor Profile</h2>
           {profileImagePreview && (
             <img
-                src={`http://localhost:5000/${profileImagePreview}`}
+                src={`https://ics-project.viscerealplate.me/${profileImagePreview}`}
                 alt="Profile"
                 width="100"
                 height="100"
@@ -100,13 +100,13 @@ function InvestorProfile() {
             <div className="form-field">
             <label>Incorporation Document</label>
             <input type="file" name="incorporation" onChange={handleChange} />
-            {formData.incorporation && <p>Current: <a href={`http://localhost:5000/${formData.incorporation}`} target="_blank" rel="noreferrer">View Incorporation</a></p>}
+            {formData.incorporation && <p>Current: <a href={`https://ics-project.viscerealplate.me/${formData.incorporation}`} target="_blank" rel="noreferrer">View Incorporation</a></p>}
             </div>
 
             <div className="form-field">
             <label>Financials</label>
             <input type="file" name="financials" onChange={handleChange} />
-            {formData.financials && <p>Current: <a href={`http://localhost:5000/${formData.financials}`} target="_blank" rel="noreferrer">View Financials</a></p>}
+            {formData.financials && <p>Current: <a href={`https://ics-project.viscerealplate.me/${formData.financials}`} target="_blank" rel="noreferrer">View Financials</a></p>}
             </div>
 
             <div className="form-field">

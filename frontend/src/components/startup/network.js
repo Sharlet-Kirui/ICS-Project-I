@@ -11,7 +11,7 @@ function StartupNetwork() {
   const [expandedCards, setExpandedCards] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/connections/${email}`)
+    fetch(`https://ics-project.viscerealplate.me/api/connections/${email}`)
       .then(res => res.json())
       .then(data => {
         setPendingConnections(data.pending || []);
@@ -20,7 +20,7 @@ function StartupNetwork() {
       })
       .catch(err => console.error(err));
 
-    fetch(`http://localhost:5000/api/investors`)
+    fetch(`https://ics-project.viscerealplate.me/api/investors`)
       .then(res => res.json())
       .then(data => setInvestors(data))
       .catch(err => console.error(err));
@@ -32,7 +32,7 @@ function StartupNetwork() {
 
   const handleResponse = async (connectionId, action) => {
     try {
-      const res = await fetch('http://localhost:5000/api/connections/respond', {
+      const res = await fetch('https://ics-project.viscerealplate.me/api/connections/respond', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ connectionId, action }),
@@ -61,7 +61,7 @@ function StartupNetwork() {
     return (
       <div key={conn._id} className="investor-card">
         <div className="card-layout">
-          <img src={`http://localhost:5000/${investor.profileImage}`} alt={investor.fullName} />
+          <img src={`https://ics-project.viscerealplate.me/${investor.profileImage}`} alt={investor.fullName} />
           <div className="card-summary">
             <h3>{investor.fullName}</h3>
             <p>{investor.jobTitle}</p>

@@ -11,7 +11,7 @@ function InvestorNetwork() {
   const email = localStorage.getItem('email');
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/connections/${email}`)
+    fetch(`https://ics-project.viscerealplate.me/api/connections/${email}`)
       .then(res => res.json())
       .then(data => {
         setPendingConnections(data.pending);
@@ -20,7 +20,7 @@ function InvestorNetwork() {
       })
       .catch(err => console.error(err));
 
-    fetch(`http://localhost:5000/api/startups`)
+    fetch(`https://ics-project.viscerealplate.me/api/startups`)
       .then(res => res.json())
       .then(data => setStartups(data))
       .catch(err => console.error(err));
@@ -36,7 +36,7 @@ function InvestorNetwork() {
   };
   const handleResponse = async (connectionId, action) => {
     try {
-      const res = await fetch('http://localhost:5000/api/connections/respond', {
+      const res = await fetch('https://ics-project.viscerealplate.me/api/connections/respond', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ connectionId, action }),
@@ -68,7 +68,7 @@ function InvestorNetwork() {
     return (
       <div key={conn._id} className="investor-card">
         <div className="card-layout">
-          <img src={`http://localhost:5000/${startup.profileImageUrl}`} alt={startup.companyName} />
+          <img src={`https://ics-project.viscerealplate.me/${startup.profileImageUrl}`} alt={startup.companyName} />
           <div className="card-summary">
             <h3>{startup.companyName}</h3>
             <p><strong>Pitch:</strong> {startup.pitch}</p>
@@ -94,7 +94,7 @@ function InvestorNetwork() {
                               <div className="modal-content">
                                 <span className="close" onClick={() => togglePDF(startup.email)}>&times;</span>
                                 <iframe
-                                  src={`http://localhost:5000/${startup.pitchDeckUrl}`}
+                                  src={`https://ics-project.viscerealplate.me/${startup.pitchDeckUrl}`}
                                   width="100%"
                                   height="600px"
                                   title="Pitch Deck"

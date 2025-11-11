@@ -34,7 +34,7 @@ function InvestorContacts() {
     const email = localStorage.getItem('investorEmail');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/investor/contacts/${email}`, {
+      const response = await fetch(`https://ics-project.viscerealplate.me/api/auth/investor/contacts/${email}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

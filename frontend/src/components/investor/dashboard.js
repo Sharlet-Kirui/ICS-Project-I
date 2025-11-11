@@ -16,12 +16,12 @@ function InvestorDashboard() {
   const { addNotification } = useNotification();
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/startups/approved')
+    fetch('https://ics-project.viscerealplate.me/api/startups/approved')
       .then(res => res.json())
       .then(data => setStartups(data))
       .catch(err => console.error(err));
 
-    fetch('http://localhost:5000/api/startups/filters')
+    fetch('https://ics-project.viscerealplate.me/api/startups/filters')
       .then(res => res.json())
       .then(data => {
         setFilterOptions(data);
@@ -33,7 +33,7 @@ function InvestorDashboard() {
   useEffect(() => {
     const email = localStorage.getItem('email');
     if (email) {
-      fetch(`http://localhost:5000/api/investors/profile/${email}`)
+      fetch(`https://ics-project.viscerealplate.me/api/investors/profile/${email}`)
         .then(res => res.json())
         .then(data => setInvestorProfile(data))
         .catch(err => console.error('Error fetching investor profile:', err));
@@ -72,7 +72,7 @@ function InvestorDashboard() {
     const recipientName = startup.companyName;
 
     try {
-      const connectionRes = await fetch('http://localhost:5000/api/connections/create', {
+      const connectionRes = await fetch('https://ics-project.viscerealplate.me/api/connections/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ senderEmail, senderType, receiverEmail, receiverType }),
@@ -85,7 +85,7 @@ function InvestorDashboard() {
         return;
       }
 
-      const notifRes = await fetch('http://localhost:5000/api/notifications/create', {
+      const notifRes = await fetch('https://ics-project.viscerealplate.me/api/notifications/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -96,7 +96,7 @@ function InvestorDashboard() {
         }),
       });
 
-      const emailRes = await fetch('http://localhost:5000/api/email/send-interest', {
+      const emailRes = await fetch('https://ics-project.viscerealplate.me/api/email/send-interest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -238,7 +238,7 @@ function InvestorDashboard() {
           {filteredStartups.map(startup => (
             <div key={startup.email} className="investor-card">
               <div className="card-layout">
-                <img src={`http://localhost:5000/${startup.profileImageUrl}`} alt={startup.companyName} />
+                <img src={`https://ics-project.viscerealplate.me/${startup.profileImageUrl}`} alt={startup.companyName} />
                 <div className="card-summary">
                   <h3>{startup.companyName}</h3>
                   <p><strong>Pitch:</strong> {startup.pitch}</p>
@@ -263,7 +263,7 @@ function InvestorDashboard() {
                               <div className="modal-content">
                                 <span className="close" onClick={() => togglePDF(startup.email)}>&times;</span>
                                 <iframe
-                                  src={`http://localhost:5000/${startup.pitchDeckUrl}`}
+                                  src={`https://ics-project.viscerealplate.me/${startup.pitchDeckUrl}`}
                                   width="100%"
                                   height="600px"
                                   title="Pitch Deck"

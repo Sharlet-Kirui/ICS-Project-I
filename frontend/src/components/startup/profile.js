@@ -8,12 +8,12 @@ function StartupProfile() {
 
 useEffect(() => {
   const email = localStorage.getItem('email');
-  fetch(`http://localhost:5000/api/startups/profile/${email}`)
+  fetch(`https://ics-project.viscerealplate.me/api/startups/profile/${email}`)
     .then(res => res.json())
     .then(data => {
       setFormData(data);
       if (data.profileImageUrl) {
-        setProfileImagePreview(`http://localhost:5000/${data.profileImageUrl}`);
+        setProfileImagePreview(`https://ics-project.viscerealplate.me/${data.profileImageUrl}`);
       }
     })
     .catch(err => console.error('Error fetching startup profile:', err));
@@ -35,7 +35,7 @@ useEffect(() => {
     const form = new FormData();
     for (const key in formData) form.append(key, formData[key]);
 
-    const res = await fetch(`http://localhost:5000/api/startups/profile/${email}`, {
+    const res = await fetch(`https://ics-project.viscerealplate.me/api/startups/profile/${email}`, {
       method: 'PUT',
       body: form
     });
@@ -147,19 +147,19 @@ useEffect(() => {
             <div className="form-field">
                 <label>Pitch Deck</label>
                 <input type="file" name="pitchDeck" onChange={handleChange} />
-                {formData.pitchDeckUrl && <p>Current: <a href={`http://localhost:5000/${formData.pitchDeckUrl}`} target="_blank" rel="noreferrer">View Pitch Deck</a></p>}
+                {formData.pitchDeckUrl && <p>Current: <a href={`https://ics-project.viscerealplate.me/${formData.pitchDeckUrl}`} target="_blank" rel="noreferrer">View Pitch Deck</a></p>}
                 </div>
 
                 <div className="form-field">
                 <label>Registration Certificate</label>
                 <input type="file" name="registrationCertificate" onChange={handleChange} />
-                {formData.registrationCertificateUrl && <p>Current: <a href={`http://localhost:5000/${formData.registrationCertificateUrl}`} target="_blank" rel="noreferrer">View Certificate</a></p>}
+                {formData.registrationCertificateUrl && <p>Current: <a href={`https://ics-project.viscerealplate.me/${formData.registrationCertificateUrl}`} target="_blank" rel="noreferrer">View Certificate</a></p>}
                 </div>
 
                 <div className="form-field">
                 <label>Financials</label>
                 <input type="file" name="financials" onChange={handleChange} />
-                {formData.financialsUrl && <p>Current: <a href={`http://localhost:5000/${formData.financialsUrl}`} target="_blank" rel="noreferrer">View Financials</a></p>}
+                {formData.financialsUrl && <p>Current: <a href={`https://ics-project.viscerealplate.me/${formData.financialsUrl}`} target="_blank" rel="noreferrer">View Financials</a></p>}
                 </div>
             <div className="form-field">
               <label>Phone</label>

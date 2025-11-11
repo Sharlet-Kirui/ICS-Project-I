@@ -9,7 +9,7 @@ function InvestorVerification() {
   const [rejectionComments, setRejectionComments] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/verification/investors/pending')
+    fetch('https://ics-project.viscerealplate.me/api/verification/investors/pending')
       .then(res => res.json())
       .then(data => setInvestors(data))
       .catch(err => console.error('Failed to fetch investors:', err));
@@ -26,7 +26,7 @@ function InvestorVerification() {
   const handleVerify = async (email, decision) => {
     const comment = rejectionComments[email] || '';
     try {
-      const res = await fetch('http://localhost:5000/api/verification/investors/verify', {
+      const res = await fetch('https://ics-project.viscerealplate.me/api/verification/investors/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, decision, comment })
@@ -47,7 +47,7 @@ function InvestorVerification() {
       {investors.map(investor => (
         <div key={investor.email} className="admin-card">
           <div className="card-layout">
-            <img src={`http://localhost:5000/${investor.profileImage}`} alt={investor.fullName} />
+            <img src={`https://ics-project.viscerealplate.me/${investor.profileImage}`} alt={investor.fullName} />
             <div className="card-summary">
               <h3>{investor.fullName}</h3>
               <p><strong>Email:</strong> {investor.email}</p>
@@ -79,7 +79,7 @@ function InvestorVerification() {
                             <div className="modal-content">
                               <span className="close" onClick={() => togglePDF(`${investor.email}_${docKey}`)}>&times;</span>
                               <iframe
-                                src={`http://localhost:5000/${investor[docKey]}`}
+                                src={`https://ics-project.viscerealplate.me/${investor[docKey]}`}
                                 width="100%"
                                 height="600px"
                                 title={docKey}
