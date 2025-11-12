@@ -68,19 +68,19 @@ c. **Pushed Initial Code**: Uploaded the project's starting codebase to the repo
 
 a. **Fixed Backend Hashing**: Edited the backend code to securely handle passwords.
 
-b. **Implemented `bcrypt.hash()`** in the signup/register functions to store a secure hash of the user's password instead of plain text.
+**Implemented `bcrypt.hash()`** in the signup/register functions to store a secure hash of the user's password instead of plain text.
 
-c. **Implemented `bcrypt.compare()`** in the login function to securely check the user's password against the stored hash.
+**Implemented `bcrypt.compare()`** in the login function to securely check the user's password against the stored hash.
 
-d. **Fixed Frontend Validation**: Edited the frontend (HTML/React) forms to improve data integrity and security.
+b. **Fixed Frontend Validation**: Edited the frontend (HTML/React) forms to improve data integrity and security.
 
-e. Added the required attribute to all form fields.
+Added the required attribute to all form fields.
 
-f. Set `type="email"` on email fields for browser-level validation.
+Set `type="email"` on email fields for browser-level validation.
 
-g. Set `minLength={8}` on password fields to enforce a **minimum password length.**
+Set `minLength={8}` on password fields to enforce a **minimum password length.**
 
-h. **Committed Security Fixes**: Committed all your security improvements and pushed them to the GitHub repository.
+c. **Committed Security Fixes**: Committed all your security improvements and pushed them to the GitHub repository.
 
 ### 3. Documentation
 
