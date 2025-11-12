@@ -173,6 +173,11 @@ a. **Fixed Backend Hashing**: Edited the backend code to securely handle passwor
 
 **Implemented `bcrypt.compare()`** in the login function to securely check the user's password against the stored hash.
 
+<img width="930" height="437" alt="image" src="https://github.com/user-attachments/assets/d3e057d8-673b-4c60-bae1-f6257c3c177c" />
+
+<img width="938" height="377" alt="image" src="https://github.com/user-attachments/assets/5f8d587f-e7b4-47c8-9507-3591971896a3" />
+
+
 b. **Fixed Frontend Validation**: Edited the frontend (HTML/React) forms to improve data integrity and security.
 
 Added the required attribute to all form fields.
@@ -180,6 +185,10 @@ Added the required attribute to all form fields.
 Set `type="email"` on email fields for browser-level validation.
 
 Set `minLength={8}` on password fields to enforce a **minimum password length.**
+
+<img width="557" height="263" alt="image" src="https://github.com/user-attachments/assets/f864761a-4279-4cb6-95f1-d4f585a14a45" />
+
+<img width="1165" height="549" alt="image" src="https://github.com/user-attachments/assets/687d001d-6d21-4333-bbfb-ad3ac4da258a" />
 
 c. **Committed Security Fixes**: Committed all your security improvements and pushed them to the GitHub repository.
 
